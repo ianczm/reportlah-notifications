@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 import "@mantine/core/styles.css";
 import "./globals.css";
 
-const interFont = Inter({
+const primaryFont = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: "variable",
@@ -32,7 +32,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body
-        className={`${interFont.variable} ${interFont.variable} antialiased`}
+        className={`${primaryFont.variable} ${primaryFont.variable} antialiased`}
       >
         <MantineProvider>{children}</MantineProvider>
       </body>
