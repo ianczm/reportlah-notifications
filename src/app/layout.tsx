@@ -3,11 +3,13 @@ import {
   mantineHtmlProps,
   MantineProvider,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { Inter } from "next/font/google";
 
 import type { Metadata } from "next";
 
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "./globals.css";
 
 const primaryFont = Inter({
@@ -34,7 +36,10 @@ export default function RootLayout({
       <body
         className={`${primaryFont.variable} ${primaryFont.variable} antialiased`}
       >
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <Notifications />
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

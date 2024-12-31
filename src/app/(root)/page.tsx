@@ -1,12 +1,22 @@
 "use client";
 
-import { Button } from "@mantine/core";
+import { Anchor, Button } from "@mantine/core";
+import Link from "next/link";
 import { useState } from "react";
 import { QrCode } from "react-qrcode-pretty";
 import { v4 as uuid } from "uuid";
 
 export default function Home() {
-  const [qrCodeValue, setQrCodeValue] = useState<string | null>(null);
+  const [feedbackLink, setFeedbackLink] = useState<string | null>(null);
+
+  const buildFeedbackLink = () => {
+    const url = new URL(`/feedback/${uuid()}`, `${window.location.origin}`);
+    return url.href;
+  };
+
+  const generateQrCode = () => {
+    setFeedbackLink(buildFeedbackLink());
+  };
 
   return (
     <main>
@@ -14,21 +24,30 @@ export default function Home() {
         {/* Header */}
         <div>
           <h2 className="text-6xl font-extrabold">Generate QR Code</h2>
-          <Button
-            variant="filled"
-            mt="md"
-            onClick={() => setQrCodeValue(uuid())}
-          >
+          <Button variant="filled" mt="md" onClick={generateQrCode}>
             Generate
           </Button>
         </div>
         {/* QR Outlet */}
         <div>
           <h2 className="text-4xl">Your QR</h2>
-          {qrCodeValue && (
+          {feedbackLink && (
             <div>
-              <p className="my-4">{qrCodeValue}</p>
-              <QrCode value={qrCodeValue} level="Q" variant="gravity" divider />
+              <Anchor
+                component={Link}
+                className="my-4 inline-block"
+                href={feedbackLink}
+                underline="hover"
+                target="_blank"
+              >
+                {feedbackLink}
+              </Anchor>
+              <QrCode
+                value={feedbackLink}
+                level="Q"
+                variant="gravity"
+                divider
+              />
             </div>
           )}
         </div>
