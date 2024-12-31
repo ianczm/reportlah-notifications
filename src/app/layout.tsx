@@ -1,7 +1,13 @@
+import {
+  ColorSchemeScript,
+  mantineHtmlProps,
+  MantineProvider,
+} from "@mantine/core";
 import { Inter } from "next/font/google";
 
 import type { Metadata } from "next";
 
+import "@mantine/core/styles.css";
 import "./globals.css";
 
 const interFont = Inter({
@@ -21,11 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body
         className={`${interFont.variable} ${interFont.variable} antialiased`}
       >
-        {children}
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
   );
