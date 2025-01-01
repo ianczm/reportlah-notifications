@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import "./globals.css";
+import "../globals.css";
 
 const primaryFont = Inter({
   variable: "--font-inter",
