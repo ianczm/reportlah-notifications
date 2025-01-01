@@ -6,7 +6,8 @@
     "dev": "dotenvx run -- next dev --turbopack",
     "build": "dotenvx run -- next build",
     "start": "dotenvx run -- next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "payload": "dotenvx run -- payload"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.32.0",
