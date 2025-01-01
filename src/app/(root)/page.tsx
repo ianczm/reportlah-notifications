@@ -1,6 +1,6 @@
 "use client";
 
-import { Anchor, Button } from "@mantine/core";
+import { Anchor, Button, Group } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 import { QrCode } from "react-qrcode-pretty";
@@ -24,9 +24,14 @@ export default function Home() {
         {/* Header */}
         <div>
           <h2 className="text-6xl font-extrabold">Generate QR Code</h2>
-          <Button variant="filled" mt="md" onClick={generateQrCode}>
-            Generate
-          </Button>
+          <Group mt="md" gap="xs">
+            <Button variant="filled" onClick={generateQrCode}>
+              Generate QR
+            </Button>
+            <Button component={Link} variant="light" href="/inbox">
+              Inbox
+            </Button>
+          </Group>
         </div>
         {/* QR Outlet */}
         <div>
