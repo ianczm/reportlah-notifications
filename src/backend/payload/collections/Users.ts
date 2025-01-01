@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
 
 import type { CollectionConfig } from "payload";
 
@@ -9,23 +9,15 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   hooks: {
-    beforeValidate: [
-      ({ data, operation }) => {
-        if (operation === "create") {
-          if (!data?.id) {
-            return { ...data, id: uuid() };
-          }
-        }
-        return { data };
-      },
-    ],
+    beforeValidate: [uuidBeforeValidate],
   },
   fields: [
     {
       name: "id",
       type: "text",
+      admin: {
+        readOnly: true,
+      },
     },
-    // Email added by default
-    // Add more fields as needed
   ],
 };

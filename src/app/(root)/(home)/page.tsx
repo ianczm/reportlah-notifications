@@ -31,6 +31,9 @@ export default function Home() {
             <Button component={Link} variant="light" href="/inbox">
               Inbox
             </Button>
+            <Button component={Link} variant="light" href="/admin">
+              Dashboard
+            </Button>
           </Group>
         </div>
         {/* QR Outlet */}
