@@ -12,6 +12,19 @@ export interface Config {
   };
   collections: {
     users: User;
+    tenants: Tenant;
+    templates: Template;
+    subscriptions: Subscription;
+    subscribers: Subscriber;
+    'subscriber-channels': SubscriberChannel;
+    services: Service;
+    publishers: Publisher;
+    'notification-batches': NotificationBatch;
+    notifications: Notification;
+    events: Event;
+    'event-types': EventType;
+    'event-tags': EventTag;
+    channels: Channel;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -19,6 +32,19 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
+    templates: TemplatesSelect<false> | TemplatesSelect<true>;
+    subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'subscriber-channels': SubscriberChannelsSelect<false> | SubscriberChannelsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    publishers: PublishersSelect<false> | PublishersSelect<true>;
+    'notification-batches': NotificationBatchesSelect<false> | NotificationBatchesSelect<true>;
+    notifications: NotificationsSelect<false> | NotificationsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    'event-types': EventTypesSelect<false> | EventTypesSelect<true>;
+    'event-tags': EventTagsSelect<false> | EventTagsSelect<true>;
+    channels: ChannelsSelect<false> | ChannelsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -74,14 +100,213 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants".
+ */
+export interface Tenant {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates".
+ */
+export interface Template {
+  id: string;
+  name: string;
+  template_body: string;
+  channel: string | Channel;
+  publisher: string | Publisher;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channels".
+ */
+export interface Channel {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publishers".
+ */
+export interface Publisher {
+  id: string;
+  service: string | Service;
+  tenant: string | Tenant;
+  supported_event_tags?: (string | EventTag)[] | null;
+  supported_event_types?: (string | EventType)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-tags".
+ */
+export interface EventTag {
+  id: string;
+  name: string;
+  event_type: string | EventType;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-types".
+ */
+export interface EventType {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions".
+ */
+export interface Subscription {
+  id: string;
+  publisher: string | Publisher;
+  subscriber: string | Subscriber;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string;
+  tenant: string | Tenant;
+  user: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriber-channels".
+ */
+export interface SubscriberChannel {
+  id: string;
+  subscriber: string | Subscriber;
+  channel: string | Channel;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notification-batches".
+ */
+export interface NotificationBatch {
+  id: string;
+  notifications?: (string | Notification)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications".
+ */
+export interface Notification {
+  id: string;
+  event: string | Event;
+  subscription: string | Subscription;
+  'subscriber-channel': string | SubscriberChannel;
+  body: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  type: string | EventType;
+  tag: string | EventTag;
+  publisher: string | Publisher;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
-  document?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'tenants';
+        value: string | Tenant;
+      } | null)
+    | ({
+        relationTo: 'templates';
+        value: string | Template;
+      } | null)
+    | ({
+        relationTo: 'subscriptions';
+        value: string | Subscription;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: string | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'subscriber-channels';
+        value: string | SubscriberChannel;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'publishers';
+        value: string | Publisher;
+      } | null)
+    | ({
+        relationTo: 'notification-batches';
+        value: string | NotificationBatch;
+      } | null)
+    | ({
+        relationTo: 'notifications';
+        value: string | Notification;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'event-types';
+        value: string | EventType;
+      } | null)
+    | ({
+        relationTo: 'event-tags';
+        value: string | EventTag;
+      } | null)
+    | ({
+        relationTo: 'channels';
+        value: string | Channel;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -139,6 +364,152 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates_select".
+ */
+export interface TemplatesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  template_body?: T;
+  channel?: T;
+  publisher?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions_select".
+ */
+export interface SubscriptionsSelect<T extends boolean = true> {
+  id?: T;
+  publisher?: T;
+  subscriber?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  id?: T;
+  tenant?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriber-channels_select".
+ */
+export interface SubscriberChannelsSelect<T extends boolean = true> {
+  id?: T;
+  subscriber?: T;
+  channel?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publishers_select".
+ */
+export interface PublishersSelect<T extends boolean = true> {
+  id?: T;
+  service?: T;
+  tenant?: T;
+  supported_event_tags?: T;
+  supported_event_types?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notification-batches_select".
+ */
+export interface NotificationBatchesSelect<T extends boolean = true> {
+  id?: T;
+  notifications?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications_select".
+ */
+export interface NotificationsSelect<T extends boolean = true> {
+  id?: T;
+  event?: T;
+  subscription?: T;
+  'subscriber-channel'?: T;
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  id?: T;
+  type?: T;
+  tag?: T;
+  publisher?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-types_select".
+ */
+export interface EventTypesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-tags_select".
+ */
+export interface EventTagsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  event_type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channels_select".
+ */
+export interface ChannelsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

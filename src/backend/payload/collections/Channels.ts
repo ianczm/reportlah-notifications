@@ -3,14 +3,20 @@ import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
 
 import type { CollectionConfig } from "payload";
 
-export const Users: CollectionConfig = {
-  slug: "users",
+export const Channels: CollectionConfig = {
+  slug: "channels",
   admin: {
-    useAsTitle: "email",
+    useAsTitle: "name",
   },
-  auth: true,
   hooks: {
     beforeValidate: [uuidBeforeValidate],
   },
-  fields: [uuidField],
+  fields: [
+    uuidField,
+    {
+      name: "name",
+      type: "text",
+      required: true,
+    },
+  ],
 };
