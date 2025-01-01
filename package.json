@@ -2,6 +2,7 @@
   "name": "reportlah-food",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "dotenvx run -- next dev --turbopack",
     "build": "dotenvx run -- next build",
