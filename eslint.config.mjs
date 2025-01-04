@@ -65,6 +65,7 @@ const eslintConfig = [
         },
       },
     ],
+    ignorePatterns: ["src/app/(payload)/*"],
   }),
 ];
 
