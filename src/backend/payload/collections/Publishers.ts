@@ -1,6 +1,3 @@
-import { uuidField } from "../fields/fields";
-import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
-
 import type { CollectionConfig } from "payload";
 
 export const Publishers: CollectionConfig = {
@@ -8,11 +5,7 @@ export const Publishers: CollectionConfig = {
   admin: {
     group: "System",
   },
-  hooks: {
-    beforeValidate: [uuidBeforeValidate],
-  },
   fields: [
-    uuidField,
     {
       name: "service",
       type: "relationship",
@@ -26,13 +19,13 @@ export const Publishers: CollectionConfig = {
       required: true,
     },
     {
-      name: "supported_event_tags",
+      name: "supported-event-tags",
       type: "relationship",
       relationTo: "event-tags",
       hasMany: true,
     },
     {
-      name: "supported_event_types",
+      name: "supported-event-types",
       type: "relationship",
       relationTo: "event-types",
       hasMany: true,

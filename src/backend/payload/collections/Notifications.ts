@@ -1,6 +1,3 @@
-import { uuidField } from "../fields/fields";
-import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
-
 import type { CollectionConfig } from "payload";
 
 export const Notifications: CollectionConfig = {
@@ -8,11 +5,7 @@ export const Notifications: CollectionConfig = {
   admin: {
     group: "Notifications",
   },
-  hooks: {
-    beforeValidate: [uuidBeforeValidate],
-  },
   fields: [
-    uuidField,
     {
       name: "event",
       type: "relationship",

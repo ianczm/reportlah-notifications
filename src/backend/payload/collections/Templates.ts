@@ -1,6 +1,3 @@
-import { uuidField } from "../fields/fields";
-import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
-
 import type { CollectionConfig } from "payload";
 
 export const Templates: CollectionConfig = {
@@ -9,18 +6,14 @@ export const Templates: CollectionConfig = {
     useAsTitle: "name",
     group: "Notifications",
   },
-  hooks: {
-    beforeValidate: [uuidBeforeValidate],
-  },
   fields: [
-    uuidField,
     {
       name: "name",
       type: "text",
       required: true,
     },
     {
-      name: "template_body",
+      name: "template-body",
       type: "textarea",
       required: true,
     },

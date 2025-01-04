@@ -1,6 +1,3 @@
-import { uuidField } from "../fields/fields";
-import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
-
 import type { CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
@@ -10,8 +7,5 @@ export const Users: CollectionConfig = {
     group: "Core",
   },
   auth: true,
-  hooks: {
-    beforeValidate: [uuidBeforeValidate],
-  },
-  fields: [uuidField],
+  fields: [],
 };

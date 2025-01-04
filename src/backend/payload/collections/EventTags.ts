@@ -1,6 +1,3 @@
-import { uuidField } from "../fields/fields";
-import { uuidBeforeValidate } from "../hooks/uuidBeforeValidate";
-
 import type { CollectionConfig } from "payload";
 
 export const EventTags: CollectionConfig = {
@@ -9,18 +6,14 @@ export const EventTags: CollectionConfig = {
     useAsTitle: "name",
     group: "Events",
   },
-  hooks: {
-    beforeValidate: [uuidBeforeValidate],
-  },
   fields: [
-    uuidField,
     {
       name: "name",
       type: "text",
       required: true,
     },
     {
-      name: "event_type",
+      name: "event-type",
       type: "relationship",
       relationTo: "event-types",
       required: true,

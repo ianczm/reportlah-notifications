@@ -50,7 +50,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {};
   globalsSelect: {};
@@ -115,7 +115,7 @@ export interface Tenant {
 export interface Template {
   id: string;
   name: string;
-  template_body: string;
+  'template-body': string;
   channel: string | Channel;
   publisher: string | Publisher;
   updatedAt: string;
@@ -139,8 +139,8 @@ export interface Publisher {
   id: string;
   service: string | Service;
   tenant: string | Tenant;
-  supported_event_tags?: (string | EventTag)[] | null;
-  supported_event_types?: (string | EventType)[] | null;
+  'supported-event-tags'?: (string | EventTag)[] | null;
+  'supported-event-types'?: (string | EventType)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -161,7 +161,7 @@ export interface Service {
 export interface EventTag {
   id: string;
   name: string;
-  event_type: string | EventType;
+  'event-type': string | EventType;
   updatedAt: string;
   createdAt: string;
 }
@@ -249,7 +249,7 @@ export interface Event {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'users';
@@ -320,7 +320,7 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
     value: string | User;
@@ -343,7 +343,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -354,7 +354,6 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  id?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -370,7 +369,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "tenants_select".
  */
 export interface TenantsSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -380,9 +378,8 @@ export interface TenantsSelect<T extends boolean = true> {
  * via the `definition` "templates_select".
  */
 export interface TemplatesSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
-  template_body?: T;
+  'template-body'?: T;
   channel?: T;
   publisher?: T;
   updatedAt?: T;
@@ -393,7 +390,6 @@ export interface TemplatesSelect<T extends boolean = true> {
  * via the `definition` "subscriptions_select".
  */
 export interface SubscriptionsSelect<T extends boolean = true> {
-  id?: T;
   publisher?: T;
   subscriber?: T;
   updatedAt?: T;
@@ -404,7 +400,6 @@ export interface SubscriptionsSelect<T extends boolean = true> {
  * via the `definition` "subscribers_select".
  */
 export interface SubscribersSelect<T extends boolean = true> {
-  id?: T;
   tenant?: T;
   user?: T;
   updatedAt?: T;
@@ -415,7 +410,6 @@ export interface SubscribersSelect<T extends boolean = true> {
  * via the `definition` "subscriber-channels_select".
  */
 export interface SubscriberChannelsSelect<T extends boolean = true> {
-  id?: T;
   subscriber?: T;
   channel?: T;
   value?: T;
@@ -427,7 +421,6 @@ export interface SubscriberChannelsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -437,11 +430,10 @@ export interface ServicesSelect<T extends boolean = true> {
  * via the `definition` "publishers_select".
  */
 export interface PublishersSelect<T extends boolean = true> {
-  id?: T;
   service?: T;
   tenant?: T;
-  supported_event_tags?: T;
-  supported_event_types?: T;
+  'supported-event-tags'?: T;
+  'supported-event-types'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -450,7 +442,6 @@ export interface PublishersSelect<T extends boolean = true> {
  * via the `definition` "notification-batches_select".
  */
 export interface NotificationBatchesSelect<T extends boolean = true> {
-  id?: T;
   notifications?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -460,7 +451,6 @@ export interface NotificationBatchesSelect<T extends boolean = true> {
  * via the `definition` "notifications_select".
  */
 export interface NotificationsSelect<T extends boolean = true> {
-  id?: T;
   event?: T;
   subscription?: T;
   'subscriber-channel'?: T;
@@ -473,7 +463,6 @@ export interface NotificationsSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  id?: T;
   type?: T;
   tag?: T;
   publisher?: T;
@@ -485,7 +474,6 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "event-types_select".
  */
 export interface EventTypesSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -495,9 +483,8 @@ export interface EventTypesSelect<T extends boolean = true> {
  * via the `definition` "event-tags_select".
  */
 export interface EventTagsSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
-  event_type?: T;
+  'event-type'?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -506,7 +493,6 @@ export interface EventTagsSelect<T extends boolean = true> {
  * via the `definition` "channels_select".
  */
 export interface ChannelsSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
