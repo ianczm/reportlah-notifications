@@ -28,9 +28,6 @@ export default function Home() {
             <Button variant="filled" onClick={generateQrCode}>
               Generate QR
             </Button>
-            <Button component={Link} variant="light" href="/inbox">
-              Inbox
-            </Button>
             <Button component={Link} variant="light" href="/admin">
               Dashboard
             </Button>
