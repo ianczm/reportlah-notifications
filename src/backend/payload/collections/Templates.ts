@@ -13,8 +13,8 @@ export const Templates: CollectionConfig = {
       required: true,
     },
     {
-      name: "template-body",
-      type: "textarea",
+      name: "data",
+      type: "json",
       required: true,
     },
     {

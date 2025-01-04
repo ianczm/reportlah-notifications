@@ -29,7 +29,15 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    subscribers: {
+      subscriberChannels: 'subscriber-channels';
+      subscriptions: 'subscriptions';
+    };
+    publishers: {
+      subscriptions: 'subscriptions';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     tenants: TenantsSelect<false> | TenantsSelect<true>;
@@ -105,6 +113,7 @@ export interface User {
 export interface Tenant {
   id: string;
   name: string;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -115,7 +124,15 @@ export interface Tenant {
 export interface Template {
   id: string;
   name: string;
-  'template-body': string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   channel: string | Channel;
   publisher: string | Publisher;
   updatedAt: string;
@@ -141,6 +158,10 @@ export interface Publisher {
   tenant: string | Tenant;
   'supported-event-tags'?: (string | EventTag)[] | null;
   'supported-event-types'?: (string | EventType)[] | null;
+  subscriptions?: {
+    docs?: (string | Subscription)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -151,6 +172,7 @@ export interface Publisher {
 export interface Service {
   id: string;
   name: string;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -172,6 +194,7 @@ export interface EventTag {
 export interface EventType {
   id: string;
   name: string;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -194,6 +217,14 @@ export interface Subscriber {
   id: string;
   tenant: string | Tenant;
   user: string | User;
+  subscriberChannels?: {
+    docs?: (string | SubscriberChannel)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  subscriptions?: {
+    docs?: (string | Subscription)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -238,9 +269,9 @@ export interface Notification {
  */
 export interface Event {
   id: string;
+  publisher: string | Publisher;
   type: string | EventType;
   tag: string | EventTag;
-  publisher: string | Publisher;
   updatedAt: string;
   createdAt: string;
 }
@@ -370,6 +401,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface TenantsSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -379,7 +411,7 @@ export interface TenantsSelect<T extends boolean = true> {
  */
 export interface TemplatesSelect<T extends boolean = true> {
   name?: T;
-  'template-body'?: T;
+  data?: T;
   channel?: T;
   publisher?: T;
   updatedAt?: T;
@@ -402,6 +434,8 @@ export interface SubscriptionsSelect<T extends boolean = true> {
 export interface SubscribersSelect<T extends boolean = true> {
   tenant?: T;
   user?: T;
+  subscriberChannels?: T;
+  subscriptions?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -422,6 +456,7 @@ export interface SubscriberChannelsSelect<T extends boolean = true> {
  */
 export interface ServicesSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -434,6 +469,7 @@ export interface PublishersSelect<T extends boolean = true> {
   tenant?: T;
   'supported-event-tags'?: T;
   'supported-event-types'?: T;
+  subscriptions?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -463,9 +499,9 @@ export interface NotificationsSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
+  publisher?: T;
   type?: T;
   tag?: T;
-  publisher?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -475,6 +511,7 @@ export interface EventsSelect<T extends boolean = true> {
  */
 export interface EventTypesSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

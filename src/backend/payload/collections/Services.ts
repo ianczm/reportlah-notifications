@@ -12,5 +12,11 @@ export const Services: CollectionConfig = {
       type: "text",
       required: true,
     },
+    {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+    },
   ],
 };

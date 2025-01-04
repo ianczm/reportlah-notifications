@@ -30,5 +30,11 @@ export const Publishers: CollectionConfig = {
       relationTo: "event-types",
       hasMany: true,
     },
+    {
+      name: "subscriptions",
+      type: "join",
+      collection: "subscriptions",
+      on: "publisher",
+    },
   ],
 };

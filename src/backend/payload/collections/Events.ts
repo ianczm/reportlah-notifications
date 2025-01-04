@@ -7,6 +7,12 @@ export const Events: CollectionConfig = {
   },
   fields: [
     {
+      name: "publisher",
+      type: "relationship",
+      relationTo: "publishers",
+      required: true,
+    },
+    {
       name: "type",
       type: "relationship",
       relationTo: "event-types",
@@ -16,12 +22,6 @@ export const Events: CollectionConfig = {
       name: "tag",
       type: "relationship",
       relationTo: "event-tags",
-      required: true,
-    },
-    {
-      name: "publisher",
-      type: "relationship",
-      relationTo: "publishers",
       required: true,
     },
   ],

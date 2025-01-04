@@ -18,5 +18,17 @@ export const Subscribers: CollectionConfig = {
       relationTo: "users",
       required: true,
     },
+    {
+      name: "subscriberChannels",
+      type: "join",
+      collection: "subscriber-channels",
+      on: "subscriber",
+    },
+    {
+      name: "subscriptions",
+      type: "join",
+      collection: "subscriptions",
+      on: "subscriber",
+    },
   ],
 };
