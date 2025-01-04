@@ -7,6 +7,7 @@ export const EventTypes: CollectionConfig = {
   slug: "event-types",
   admin: {
     useAsTitle: "name",
+    group: "Events",
   },
   hooks: {
     beforeValidate: [uuidBeforeValidate],

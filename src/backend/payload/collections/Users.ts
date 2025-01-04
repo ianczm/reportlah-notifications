@@ -7,6 +7,7 @@ export const Users: CollectionConfig = {
   slug: "users",
   admin: {
     useAsTitle: "email",
+    group: "Core",
   },
   auth: true,
   hooks: {

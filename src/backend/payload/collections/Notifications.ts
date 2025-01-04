@@ -5,6 +5,9 @@ import type { CollectionConfig } from "payload";
 
 export const Notifications: CollectionConfig = {
   slug: "notifications",
+  admin: {
+    group: "Notifications",
+  },
   hooks: {
     beforeValidate: [uuidBeforeValidate],
   },

@@ -7,6 +7,7 @@ export const Channels: CollectionConfig = {
   slug: "channels",
   admin: {
     useAsTitle: "name",
+    group: "Core",
   },
   hooks: {
     beforeValidate: [uuidBeforeValidate],

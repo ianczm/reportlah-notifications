@@ -5,6 +5,9 @@ import type { CollectionConfig } from "payload";
 
 export const SubscriberChannels: CollectionConfig = {
   slug: "subscriber-channels",
+  admin: {
+    group: "System",
+  },
   hooks: {
     beforeValidate: [uuidBeforeValidate],
   },

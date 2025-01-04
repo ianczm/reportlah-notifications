@@ -5,6 +5,9 @@ import type { CollectionConfig } from "payload";
 
 export const Subscriptions: CollectionConfig = {
   slug: "subscriptions",
+  admin: {
+    group: "System",
+  },
   hooks: {
     beforeValidate: [uuidBeforeValidate],
   },

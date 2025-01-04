@@ -7,6 +7,7 @@ export const Tenants: CollectionConfig = {
   slug: "tenants",
   admin: {
     useAsTitle: "name",
+    group: "Core",
   },
   hooks: {
     beforeValidate: [uuidBeforeValidate],

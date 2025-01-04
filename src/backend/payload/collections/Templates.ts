@@ -7,6 +7,7 @@ export const Templates: CollectionConfig = {
   slug: "templates",
   admin: {
     useAsTitle: "name",
+    group: "Notifications",
   },
   hooks: {
     beforeValidate: [uuidBeforeValidate],

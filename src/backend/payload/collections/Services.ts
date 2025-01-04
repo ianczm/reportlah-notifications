@@ -7,6 +7,7 @@ export const Services: CollectionConfig = {
   slug: "services",
   admin: {
     useAsTitle: "name",
+    group: "Core",
   },
   hooks: {
     beforeValidate: [uuidBeforeValidate],
