@@ -26,8 +26,7 @@ export const Notifications: CollectionConfig = {
     },
     {
       name: "body",
-      type: "textarea",
-      required: true,
+      type: "json",
     },
   ],
 };

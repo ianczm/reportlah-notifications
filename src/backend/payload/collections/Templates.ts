@@ -17,6 +17,7 @@ export const Templates: CollectionConfig = {
       type: "json",
       required: true,
     },
+    /* Todo: add unique constraint over channel and publisher */
     {
       name: "channel",
       type: "relationship",

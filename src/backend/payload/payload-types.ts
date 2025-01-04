@@ -236,7 +236,7 @@ export interface SubscriberChannel {
   id: string;
   subscriber: string | Subscriber;
   channel: string | Channel;
-  value: string;
+  recipient: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -259,7 +259,15 @@ export interface Notification {
   event: string | Event;
   subscription: string | Subscription;
   'subscriber-channel': string | SubscriberChannel;
-  body: string;
+  body?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -446,7 +454,7 @@ export interface SubscribersSelect<T extends boolean = true> {
 export interface SubscriberChannelsSelect<T extends boolean = true> {
   subscriber?: T;
   channel?: T;
-  value?: T;
+  recipient?: T;
   updatedAt?: T;
   createdAt?: T;
 }

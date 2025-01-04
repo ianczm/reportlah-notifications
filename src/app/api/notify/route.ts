@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { z } from "zod";
 
+import { sendCourierRequest } from "@/backend/notifications/courier";
 import payload from "@/backend/payload/payload";
-import { EventType } from "@/backend/payload/payload-types";
+import { EventType, Service } from "@/backend/payload/payload-types";
 
 export async function POST(request: Request) {
   const parsedRequest = z
@@ -21,10 +22,6 @@ export async function POST(request: Request) {
   const eventTag = await payload.findByID({
     id: eventTagId,
     collection: "event-tags",
-    select: {
-      name: true,
-      "event-type": true,
-    },
     disableErrors: true,
   });
 
@@ -47,6 +44,16 @@ export async function POST(request: Request) {
       tag: eventTag.id,
       type: eventType.id,
     },
+  });
+
+  sendCourierRequest({
+    event: {
+      id: event.id,
+      publisher: publisher,
+      tag: eventTag,
+      type: eventType,
+    },
+    service: publisher.service as Service,
   });
 
   return Response.json({ event }, { status: 201 });

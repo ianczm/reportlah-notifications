@@ -19,7 +19,7 @@ export const SubscriberChannels: CollectionConfig = {
       required: true,
     },
     {
-      name: "value",
+      name: "recipient",
       type: "text",
       required: true,
     },
