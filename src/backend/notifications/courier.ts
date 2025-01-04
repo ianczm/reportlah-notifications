@@ -126,7 +126,7 @@ export async function sendCourierRequest({
   await Promise.all(requests);
 }
 
-export type BuildCourierRequestParams = {
+export type BuildNotificationMessageParams = {
   subscriberChannel: SubscriberChannel;
   template: Template;
   service: Service;
@@ -142,7 +142,7 @@ export async function buildCourierRequest({
   eventType,
   eventTag,
   count,
-}: BuildCourierRequestParams): Promise<SendMessageRequest> {
+}: BuildNotificationMessageParams): Promise<SendMessageRequest> {
   const template = templateRecord.data as {
     templateId: string;
     templateData: { title: string; body: string };
