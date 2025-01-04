@@ -2,15 +2,15 @@
 
 import { Button, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { use } from "react";
+import { useParams } from "next/navigation";
 
 type ReportOption = {
   id: number;
   title: string;
 };
 
-function FeedbackPage({ params }: { params: Promise<{ tenandId: string }> }) {
-  const { tenantId } = use(params);
+function FeedbackPage() {
+  const { tenantId } = useParams<{ tenantId: string }>();
 
   const handleOptionClick = async (option: ReportOption) => {
     await fetch("/api/notifications", {
