@@ -1,5 +1,5 @@
 import { SendMessageRequest } from "@trycourier/courier/api";
-import Handlebars from "handlebars";
+import { compile } from "handlebars";
 
 import { courier } from "@/lib/courier";
 
@@ -149,11 +149,11 @@ export async function buildCourierRequest({
   };
 
   const compiledData = {
-    title: Handlebars.compile(template.templateData.title)({
+    title: compile(template.templateData.title)({
       serviceName: service.name,
       eventTypeName: eventType.name,
     }),
-    body: Handlebars.compile(template.templateData.body)({
+    body: compile(template.templateData.body)({
       count,
       eventTypeName: eventType.name,
       eventTagName: eventTag.name,

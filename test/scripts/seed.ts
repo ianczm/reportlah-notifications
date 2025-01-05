@@ -91,7 +91,7 @@ const seed = async () => {
       data: {
         subscriber: subscriber.id,
         channel: channel.id,
-        value: "ianczm",
+        recipient: "ianczm",
       },
     }),
     payload.create({
