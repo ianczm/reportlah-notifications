@@ -2,20 +2,23 @@
 
 import { Anchor, Button, Group, Space, Stack } from "@mantine/core";
 import Link from "next/link";
+import { useAction } from "next-safe-action/hooks";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { QrCode } from "react-qrcode-pretty";
 import { v4 as uuid } from "uuid";
 
-import { getAllPublishers } from "@/backend/actions";
+import { getAllPublishersAction } from "@/backend/actions/payload";
 import { Publisher, Service, Tenant } from "@/backend/payload/payload-types";
 
 export default function Home() {
   const [publishers, setPublishers] = useState<Publisher[]>([]);
   const [feedbackLink, setFeedbackLink] = useState<string | null>(null);
 
-  useEffect(() => {
-    getAllPublishers().then(setPublishers);
-  }, []);
+  const { execute } = useAction(getAllPublishersAction, {
+    onSuccess: ({ data }) => setPublishers(data!),
+  });
+
+  useEffect(execute, [execute]);
 
   const buildFeedbackLink = () => {
     const url = new URL(`/feedback/${uuid()}`, `${window.location.origin}`);

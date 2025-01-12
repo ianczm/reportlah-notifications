@@ -1,9 +1,11 @@
 "use server";
 
+import { actionClient } from "@/lib/safe-action";
+
 import payload from "../payload/payload";
 import { Publisher } from "../payload/payload-types";
 
-export async function getAllPublishers(): Promise<Publisher[]> {
+async function getAllPublishers(): Promise<Publisher[]> {
   const publishers = await payload.find({
     collection: "publishers",
     limit: 5,
@@ -11,3 +13,5 @@ export async function getAllPublishers(): Promise<Publisher[]> {
   });
   return publishers.docs;
 }
+
+export const getAllPublishersAction = actionClient.action(getAllPublishers);

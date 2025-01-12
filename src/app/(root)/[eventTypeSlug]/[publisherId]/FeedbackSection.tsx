@@ -1,9 +1,11 @@
 "use client";
 
-import { Button, Stack } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+import { Stack } from "@mantine/core";
+import { useState } from "react";
 
 import { EventTag, Publisher, Tenant } from "@/backend/payload/payload-types";
+
+import FeedbackButton from "./FeedbackButton";
 
 export type FeedbackSectionProps = {
   publisher: Publisher;
@@ -16,20 +18,7 @@ function FeedbackSection({
   tenant,
   eventTags,
 }: FeedbackSectionProps) {
-  const handleOptionClick = async (eventTag: EventTag) => {
-    await fetch("/api/notify", {
-      method: "POST",
-      body: JSON.stringify({
-        publisherId: publisher.id,
-        eventTagId: eventTag.id,
-      }),
-    });
-
-    notifications.show({
-      title: "Feedback sent!",
-      message: `You let ${tenant.name} know about ${eventTag.name}.`,
-    });
-  };
+  const [pendingEvent, setPendingEvent] = useState<EventTag | null>(null);
 
   return (
     <section className="mx-auto grid h-screen max-w-screen-xl grid-cols-2 items-center gap-8">
@@ -46,12 +35,17 @@ function FeedbackSection({
         <Stack gap="xs">
           {eventTags &&
             eventTags.map((eventTag) => (
-              <Button
+              <FeedbackButton
                 key={eventTag.id}
-                onClick={() => handleOptionClick(eventTag)}
+                tenant={tenant}
+                publisher={publisher}
+                eventTag={eventTag}
+                onExecute={() => setPendingEvent(eventTag)}
+                onSettled={() => setPendingEvent(null)}
+                disabled={pendingEvent !== null && pendingEvent !== eventTag}
               >
                 {eventTag.name}
-              </Button>
+              </FeedbackButton>
             ))}
         </Stack>
       </div>
