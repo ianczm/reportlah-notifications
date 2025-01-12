@@ -237,6 +237,7 @@ export interface SubscriberChannel {
   subscriber: string | Subscriber;
   channel: string | Channel;
   recipient: string;
+  enabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -455,6 +456,7 @@ export interface SubscriberChannelsSelect<T extends boolean = true> {
   subscriber?: T;
   channel?: T;
   recipient?: T;
+  enabled?: T;
   updatedAt?: T;
   createdAt?: T;
 }

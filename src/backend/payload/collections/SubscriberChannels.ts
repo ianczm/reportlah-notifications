@@ -23,5 +23,10 @@ export const SubscriberChannels: CollectionConfig = {
       type: "text",
       required: true,
     },
+    {
+      name: "enabled",
+      type: "checkbox",
+      defaultValue: true,
+    },
   ],
 };

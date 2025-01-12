@@ -20,6 +20,14 @@ type PopulatedEvent = {
   service: Service;
 };
 
+const REQUEST_FACTORY: Record<
+  string,
+  (params: BuildNotificationMessageParams) => Promise<SendMessageRequest>
+> = {
+  courier: buildCourierRequest,
+  discord: buildCourierDiscordRequest,
+};
+
 export async function sendCourierRequest({
   event,
   service,
@@ -63,9 +71,18 @@ export async function sendCourierRequest({
     const subscriberChannels = await payload.find({
       collection: "subscriber-channels",
       where: {
-        id: {
-          in: subscriberChannelIds,
-        },
+        and: [
+          {
+            id: {
+              in: subscriberChannelIds,
+            },
+          },
+          {
+            enabled: {
+              equals: true,
+            },
+          },
+        ],
       },
     });
 
@@ -97,7 +114,10 @@ export async function sendCourierRequest({
           );
         }
 
-        const request = await buildCourierRequest({
+        const channelName = channel.name.toLowerCase();
+        const channelRequestBuilder = REQUEST_FACTORY[channelName];
+
+        const request = await channelRequestBuilder({
           subscriberChannel,
           template: template.docs[0],
           service: service,
@@ -106,7 +126,7 @@ export async function sendCourierRequest({
           count: matchingEvents.docs.length,
         });
 
-        await payload.create({
+        const notification = await payload.create({
           collection: "notifications",
           data: {
             "subscriber-channel": subscriberChannel.id,
@@ -114,6 +134,13 @@ export async function sendCourierRequest({
             subscription: subscription.id,
             body: request as unknown as Record<string, never>,
           },
+        });
+
+        console.log({
+          message: `Sending courier request for event: ${event.id}.`,
+          event,
+          courierRequest: request,
+          createdNotification: notification,
         });
 
         await courier.send(request);
@@ -134,6 +161,42 @@ export type BuildNotificationMessageParams = {
   eventTag: EventTag;
   count: number;
 };
+
+export async function buildCourierDiscordRequest({
+  subscriberChannel,
+  template: templateRecord,
+  service,
+  eventType,
+  eventTag,
+  count,
+}: BuildNotificationMessageParams): Promise<SendMessageRequest> {
+  const template = templateRecord.data as {
+    templateId: string;
+    templateData: { title: string; body: string };
+  };
+
+  const compiledData = {
+    title: compile(template.templateData.title)({
+      serviceName: service.name,
+      eventTypeName: eventType.name,
+    }),
+    body: compile(template.templateData.body)({
+      count,
+      eventTypeName: eventType.name,
+      eventTagName: eventTag.name,
+    }),
+  };
+
+  return {
+    message: {
+      to: {
+        discord: { user_id: subscriberChannel.recipient },
+      },
+      template: template.templateId,
+      data: compiledData,
+    },
+  };
+}
 
 export async function buildCourierRequest({
   subscriberChannel,
