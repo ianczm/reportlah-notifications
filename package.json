@@ -8,7 +8,8 @@
     "build": "dotenvx run -- next build",
     "start": "dotenvx run -- next start",
     "lint": "next lint",
-    "payload": "dotenvx run -- payload"
+    "payload": "dotenvx run -- payload",
+    "prod:seed": "dotenvx run -f .env.prod -- payload run ./test/scripts/seed.ts"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.32.0",
