@@ -3,6 +3,7 @@
 import { z } from "zod";
 
 import { actionClient } from "@/lib/safe-action";
+import { log } from "@/lib/winston";
 
 import { sendCourierRequest } from "../notifications/courier";
 import payload from "../payload/payload";
@@ -33,6 +34,9 @@ async function findPublisherById(id: string) {
 
 async function raiseEvent(eventRequest: EventRequest) {
   const { publisherId, eventTagId } = eventRequest;
+  log.info(
+    `Raising event for Publisher: ${publisherId} and EventTag: ${eventTagId}`
+  );
 
   const [publisher, eventTag] = await Promise.all([
     findPublisherById(publisherId),
@@ -55,6 +59,8 @@ async function raiseEvent(eventRequest: EventRequest) {
       type: eventType.id,
     },
   });
+
+  log.info(`Event created: ${event.id}`);
 
   sendCourierRequest({
     event: {

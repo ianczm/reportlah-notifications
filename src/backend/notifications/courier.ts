@@ -2,6 +2,7 @@ import { SendMessageRequest } from "@trycourier/courier/api";
 import { compile } from "handlebars";
 
 import { courier } from "@/lib/courier";
+import { log } from "@/lib/winston";
 
 import payload from "../payload/payload";
 import {
@@ -32,7 +33,7 @@ export async function sendCourierRequest({
   event,
   service,
 }: PopulatedEvent): Promise<void> {
-  const { publisher, tag: eventTag, type: eventType } = event;
+  const { publisher, tag: eventTag, type: eventType, id: eventId } = event;
 
   const matchingEvents = await payload.find({
     collection: "events",
@@ -63,6 +64,10 @@ export async function sendCourierRequest({
     pagination: false,
   });
 
+  log.info(
+    `Found ${matchingEvents.docs.length} matching events and ${subscriptions.docs.length} subscriptions for event ${eventId}.`
+  );
+
   const requests = subscriptions.docs.map(async (subscription) => {
     const subscriber = subscription.subscriber as Subscriber;
     const subscriberChannelIds = subscriber.subscriberChannels
@@ -85,6 +90,10 @@ export async function sendCourierRequest({
         ],
       },
     });
+
+    log.info(
+      `Found ${subscriberChannels.docs.length} enabled subscriber channels for subscriber ${subscriber.id} for event ${eventId}.`
+    );
 
     const requestConstructions = subscriberChannels.docs.map(
       async (subscriberChannel) => {
@@ -110,7 +119,7 @@ export async function sendCourierRequest({
 
         if (template.docs.length <= 0) {
           throw new Error(
-            `Template not found for publisher: ${publisher.id} and channel: ${channel.id}.`
+            `Template not found for publisher ${publisher.id} and channel ${channel.id} for event ${eventId}.`
           );
         }
 
@@ -123,10 +132,11 @@ export async function sendCourierRequest({
           service: service,
           eventType,
           eventTag,
+          eventId,
           count: matchingEvents.docs.length,
         });
 
-        await payload.create({
+        const notification = await payload.create({
           collection: "notifications",
           data: {
             "subscriber-channel": subscriberChannel.id,
@@ -136,7 +146,13 @@ export async function sendCourierRequest({
           },
         });
 
+        log.info(`Notification created: ${notification.id} for ${eventId}`);
+
         await courier.send(request);
+        log.info(
+          `Sent notification for ${eventId} to ${subscriberChannel.id}.`,
+          { request }
+        );
       }
     );
 
@@ -152,6 +168,7 @@ export type BuildNotificationMessageParams = {
   service: Service;
   eventType: EventType;
   eventTag: EventTag;
+  eventId: string;
   count: number;
 };
 
@@ -161,8 +178,13 @@ export async function buildCourierDiscordRequest({
   service,
   eventType,
   eventTag,
+  eventId,
   count,
 }: BuildNotificationMessageParams): Promise<SendMessageRequest> {
+  log.info(
+    `Building Discord request for subscriber channel ${subscriberChannel.id} for event ${eventId}.`
+  );
+
   const template = templateRecord.data as {
     templateId: string;
     templateData: { title: string; body: string };
@@ -197,8 +219,13 @@ export async function buildCourierRequest({
   service,
   eventType,
   eventTag,
+  eventId,
   count,
 }: BuildNotificationMessageParams): Promise<SendMessageRequest> {
+  log.info(
+    `Building Courier request for subscriber channel ${subscriberChannel.id} for event ${eventId}.`
+  );
+
   const template = templateRecord.data as {
     templateId: string;
     templateData: { title: string; body: string };
