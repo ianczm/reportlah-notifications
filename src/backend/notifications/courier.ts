@@ -33,6 +33,8 @@ export async function sendCourierRequest({
   event,
   service,
 }: PopulatedEvent): Promise<void> {
+  log.info(`Sending courier request for event ${event.id}.`);
+
   const { publisher, tag: eventTag, type: eventType, id: eventId } = event;
 
   const matchingEvents = await payload.find({

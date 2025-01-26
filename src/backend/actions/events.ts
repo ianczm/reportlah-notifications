@@ -62,7 +62,7 @@ async function raiseEvent(eventRequest: EventRequest) {
 
   log.info(`Event created: ${event.id}`);
 
-  sendCourierRequest({
+  await sendCourierRequest({
     event: {
       id: event.id,
       publisher: publisher,
