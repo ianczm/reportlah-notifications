@@ -4,6 +4,7 @@ export const SubscriberChannels: CollectionConfig = {
   slug: "subscriber-channels",
   admin: {
     group: "System",
+    useAsTitle: "channel",
   },
   fields: [
     {

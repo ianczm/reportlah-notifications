@@ -154,6 +154,7 @@ export interface Channel {
  */
 export interface Publisher {
   id: string;
+  name?: string | null;
   service: string | Service;
   tenant: string | Tenant;
   'supported-event-tags'?: (string | EventTag)[] | null;
@@ -215,6 +216,7 @@ export interface Subscription {
  */
 export interface Subscriber {
   id: string;
+  name?: string | null;
   tenant: string | Tenant;
   user: string | User;
   subscriberChannels?: {
@@ -441,6 +443,7 @@ export interface SubscriptionsSelect<T extends boolean = true> {
  * via the `definition` "subscribers_select".
  */
 export interface SubscribersSelect<T extends boolean = true> {
+  name?: T;
   tenant?: T;
   user?: T;
   subscriberChannels?: T;
@@ -475,6 +478,7 @@ export interface ServicesSelect<T extends boolean = true> {
  * via the `definition` "publishers_select".
  */
 export interface PublishersSelect<T extends boolean = true> {
+  name?: T;
   service?: T;
   tenant?: T;
   'supported-event-tags'?: T;

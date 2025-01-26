@@ -4,8 +4,39 @@ export const Publishers: CollectionConfig = {
   slug: "publishers",
   admin: {
     group: "System",
+    useAsTitle: "name",
   },
   fields: [
+    {
+      name: "name",
+      type: "text",
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+      hooks: {
+        beforeChange: [
+          async ({ siblingData }) => {
+            delete siblingData["name"];
+          },
+        ],
+        afterRead: [
+          async ({ data, req }) => {
+            const tenant = await req.payload.findByID({
+              collection: "tenants",
+              id: data!.tenant,
+            });
+
+            const service = await req.payload.findByID({
+              collection: "services",
+              id: data!.service,
+            });
+
+            return `${service.name} | ${tenant.name}`;
+          },
+        ],
+      },
+    },
     {
       name: "service",
       type: "relationship",

@@ -4,8 +4,39 @@ export const Subscribers: CollectionConfig = {
   slug: "subscribers",
   admin: {
     group: "System",
+    useAsTitle: "name",
   },
   fields: [
+    {
+      name: "name",
+      type: "text",
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+      hooks: {
+        beforeChange: [
+          async ({ siblingData }) => {
+            delete siblingData["name"];
+          },
+        ],
+        afterRead: [
+          async ({ data, req }) => {
+            const tenant = await req.payload.findByID({
+              collection: "tenants",
+              id: data!.tenant,
+            });
+
+            const user = await req.payload.findByID({
+              collection: "users",
+              id: data!.user,
+            });
+
+            return `${user.email} | ${tenant.name}`;
+          },
+        ],
+      },
+    },
     {
       name: "tenant",
       type: "relationship",
