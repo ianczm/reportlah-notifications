@@ -1,3 +1,15 @@
-@tailwind base;
+:root {
+  --color-dark-100: 22 23 16;
+  --color-dark-400: 107 99 82;
+  --color-dark-600: 179 176 168;
+  --color-light-600: 223 213 193;
+  --color-light-700: 255 247 231;
+  --color-light-800: 255 255 255;
+}
+
+@layer tailwind {
+  @tailwind base;
+}
+
 @tailwind components;
 @tailwind utilities;

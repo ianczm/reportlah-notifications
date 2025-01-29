@@ -4,7 +4,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Inter } from "next/font/google";
+import { Inter, Paytone_One } from "next/font/google";
 
 import type { Metadata } from "next";
 
@@ -16,6 +16,12 @@ const primaryFont = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: "variable",
+});
+
+const displayFont = Paytone_One({
+  variable: "--font-paytone-one",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -34,9 +40,10 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body
-        className={`${primaryFont.variable} ${primaryFont.variable} antialiased`}
+        className={`${primaryFont.variable} ${displayFont.variable} ${primaryFont.className} antialiased`}
       >
-        <MantineProvider>
+        <ColorSchemeScript defaultColorScheme="dark" />
+        <MantineProvider defaultColorScheme="dark">
           <Notifications />
           {children}
         </MantineProvider>
