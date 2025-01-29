@@ -10,10 +10,10 @@
     "prod:serve": "dotenvx run -f .env.prod -- next dev --turbopack",
     "prod:build": "dotenvx run -f .env.prod -- next build",
     "prod:start": "dotenvx run -f .env.prod -- next start",
-    "local:seed": "dotenvx run -f .env.local -- payload run ./test/scripts/seed.ts",
-    "local:serve": "dotenvx run -f .env.local -- next dev --turbopack",
-    "local:build": "dotenvx run -f .env.local -- next build",
-    "local:start": "dotenvx run -f .env.local -- next start"
+    "local:seed": "dotenvx run -f .env -- payload run ./test/scripts/seed.ts",
+    "local:serve": "dotenvx run -f .env -- next dev --turbopack",
+    "local:build": "dotenvx run -f .env -- next build",
+    "local:start": "dotenvx run -f .env -- next start"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.32.0",

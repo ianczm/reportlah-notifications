@@ -10,12 +10,14 @@ import { SubscriberChannels } from "./SubscriberChannels";
 import { Subscribers } from "./Subscribers";
 import { Subscriptions } from "./Subscriptions";
 import { Templates } from "./Templates";
+import { TenantMetadata } from "./TenantMetadata";
 import { Tenants } from "./Tenants";
 import { Users } from "./Users";
 
 export const collections = [
   Users,
   Tenants,
+  TenantMetadata,
   Templates,
   Subscriptions,
   Subscribers,

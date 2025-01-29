@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     tenants: Tenant;
+    tenantMetadata: TenantMetadatum;
     templates: Template;
     subscriptions: Subscription;
     subscribers: Subscriber;
@@ -41,6 +42,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     tenants: TenantsSelect<false> | TenantsSelect<true>;
+    tenantMetadata: TenantMetadataSelect<false> | TenantMetadataSelect<true>;
     templates: TemplatesSelect<false> | TemplatesSelect<true>;
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
@@ -114,6 +116,22 @@ export interface Tenant {
   id: string;
   name: string;
   slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenantMetadata".
+ */
+export interface TenantMetadatum {
+  id: string;
+  name: string;
+  tenant: string | Tenant;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  location: [number, number];
   updatedAt: string;
   createdAt: string;
 }
@@ -302,6 +320,10 @@ export interface PayloadLockedDocument {
         value: string | Tenant;
       } | null)
     | ({
+        relationTo: 'tenantMetadata';
+        value: string | TenantMetadatum;
+      } | null)
+    | ({
         relationTo: 'templates';
         value: string | Template;
       } | null)
@@ -413,6 +435,17 @@ export interface UsersSelect<T extends boolean = true> {
 export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenantMetadata_select".
+ */
+export interface TenantMetadataSelect<T extends boolean = true> {
+  name?: T;
+  tenant?: T;
+  location?: T;
   updatedAt?: T;
   createdAt?: T;
 }

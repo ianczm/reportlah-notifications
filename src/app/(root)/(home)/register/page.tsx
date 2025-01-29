@@ -1,4 +1,5 @@
 import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
+import Link from "next/link";
 
 function HomePage() {
   return (
@@ -28,6 +29,8 @@ function HomePage() {
               variant="outline"
               fz="md"
               bd="2px solid"
+              component={Link}
+              href="/admin"
             >
               Dashboard
             </Button>
