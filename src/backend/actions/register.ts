@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import { actionClient } from "@/lib/safe-action";
 import { log } from "@/lib/winston";
 import {
@@ -45,7 +47,8 @@ async function register(request: RegistrationFormSchema) {
     subscriptions,
   });
 
-  return publishers[0];
+  /* Currently only registers a publisher for Reportlah Food */
+  redirect(`/register/success?publisherId=${publisherIds[0]}`);
 }
 
 async function createTenant(
@@ -70,6 +73,7 @@ async function createTenant(
   log.info(`Created tenant: ${tenant.id}`);
   return tenant;
 }
+
 async function createPublishers(tenantId: string): Promise<Publisher[]> {
   const services = await payload.find({
     collection: "services",

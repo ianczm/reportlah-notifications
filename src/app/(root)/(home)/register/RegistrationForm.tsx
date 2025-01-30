@@ -45,7 +45,6 @@ function RegistrationForm() {
       recipient: "",
       terms: false,
     },
-    onValuesChange: (values) => console.log(values),
   });
 
   function handleNextPage() {
@@ -78,9 +77,7 @@ function RegistrationForm() {
   }
 
   async function handleFormSubmit(values: typeof form.values) {
-    console.log(values);
-    const publisher = await executeAsync(values);
-    console.log(publisher);
+    await executeAsync(values);
   }
 
   return (
