@@ -11,6 +11,7 @@ import {
 import { useForm, zodResolver } from "@mantine/form";
 import { useState } from "react";
 
+import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
 import { REGISTRATION_FORM_SCHEMA } from "@/ui/features/register/validator";
 import { cn } from "@/ui/utils/tailwind";
 
@@ -30,7 +31,10 @@ function RegistrationForm() {
     validateInputOnBlur: true,
     initialValues: {
       tenantName: "",
-      location: "",
+      location: {
+        longtitude: Infinity,
+        latitude: Infinity,
+      },
       email: "",
       password: "",
       confirmPassword: "",
@@ -38,6 +42,7 @@ function RegistrationForm() {
       recipient: "",
       terms: false,
     },
+    onValuesChange: (values) => console.log(values),
   });
 
   function handleNextPage() {
@@ -119,27 +124,11 @@ function RegistrationForm() {
                     error: "text-sm",
                   }}
                 />
-                <TextInput
-                  id="location"
+                <PlacesAutocomplete
+                  form={form}
                   name="location"
-                  key={form.key("location")}
-                  {...form.getInputProps("location")}
                   label="Shop Location"
                   placeholder="Enter your shop location coordinates"
-                  type="text"
-                  required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    error: "text-sm",
-                  }}
                 />
                 <TextInput
                   id="email"
@@ -231,8 +220,14 @@ function RegistrationForm() {
                   label="Notifications Channel"
                   placeholder="Select your channel"
                   data={[
-                    { value: "email", label: "Discord" },
-                    { value: "sms", label: "Courier" },
+                    {
+                      value: "5160057b-e0cf-40a3-8baf-3a5818f6ac76",
+                      label: "Discord",
+                    },
+                    {
+                      value: "d3139bf5-d067-467b-a4cf-2c63acc343b5",
+                      label: "Courier",
+                    },
                   ]}
                   classNames={{
                     input:
