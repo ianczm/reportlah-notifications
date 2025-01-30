@@ -1,10 +1,17 @@
 import { Button, Group } from "@mantine/core";
 import Link from "next/link";
 
+import payload from "@/backend/payload/payload";
+
 import LandingContent from "./LandingContent";
 import RegistrationForm from "./RegistrationForm";
 
-function HomePage() {
+async function RegistrationPage() {
+  const channels = await payload.find({
+    collection: "channels",
+    depth: 0,
+  });
+
   return (
     <main className="h-screen w-screen bg-dark-100">
       <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 px-5">
@@ -36,10 +43,10 @@ function HomePage() {
             </Button>
           </Group>
         </LandingContent>
-        <RegistrationForm />
+        <RegistrationForm channels={channels.docs} />
       </section>
     </main>
   );
 }
 
-export default HomePage;
+export default RegistrationPage;

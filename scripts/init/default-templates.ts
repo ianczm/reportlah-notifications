@@ -50,6 +50,3 @@ export async function seedDefaultTemplates() {
     message: `Created ${createdTemplates.length} new default templates.`,
   });
 }
-
-await seedDefaultTemplates();
-process.exit(0);

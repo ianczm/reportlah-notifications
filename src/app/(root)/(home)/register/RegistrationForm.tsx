@@ -13,6 +13,7 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 
 import { registerAction } from "@/backend/actions/register";
+import { Channel } from "@/backend/payload/payload-types";
 import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
 import { REGISTRATION_FORM_SCHEMA } from "@/ui/features/register/validator";
 import { cn } from "@/ui/utils/tailwind";
@@ -23,7 +24,11 @@ const fieldNamesByPage: Record<number, string[]> = {
   2: ["channelId", "recipient", "terms"],
 };
 
-function RegistrationForm() {
+type RegistrationFormProps = {
+  channels: Channel[];
+};
+
+function RegistrationForm({ channels }: RegistrationFormProps) {
   const lastPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const { executeAsync, isPending } = useAction(registerAction);
@@ -221,16 +226,10 @@ function RegistrationForm() {
                   {...form.getInputProps("channelId")}
                   label="Notifications Channel"
                   placeholder="Select your channel"
-                  data={[
-                    {
-                      value: "5160057b-e0cf-40a3-8baf-3a5818f6ac76",
-                      label: "Discord",
-                    },
-                    {
-                      value: "d3139bf5-d067-467b-a4cf-2c63acc343b5",
-                      label: "Courier",
-                    },
-                  ]}
+                  data={channels.map((channel) => ({
+                    value: channel.id,
+                    label: channel.name,
+                  }))}
                   classNames={{
                     input:
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",

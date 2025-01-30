@@ -98,7 +98,8 @@ async function createPublishers(tenantId: string): Promise<Publisher[]> {
     }),
   ]);
 
-  log.info("Retrieved eventTags and eventTypes.", { eventTags, eventTypes });
+  log.info("Retrieved eventTags.", { eventTags });
+  log.info("Retrieved eventTypes.", { eventTypes });
 
   const publishers = services.docs.map(async (service) => {
     const publisher = await payload.create({
@@ -137,13 +138,16 @@ async function createSubscriber(
   userId: string,
   tenantId: string
 ): Promise<Subscriber> {
-  return payload.create({
+  const subscriber = await payload.create({
     collection: "subscribers",
     data: {
       user: userId,
       tenant: tenantId,
     },
   });
+
+  log.info(`Created subscriber ${subscriber.id}`);
+  return subscriber;
 }
 
 async function createSubscriberChannel(
@@ -151,29 +155,52 @@ async function createSubscriberChannel(
   channelId: string,
   recipient: string
 ): Promise<SubscriberChannel> {
-  return payload.create({
+  log.info("About to create subscriber channel.", {
+    subscriberId,
+    channelId,
+    recipient,
+  });
+
+  const subscriberChannel = await payload.create({
     collection: "subscriber-channels",
     data: {
       subscriber: subscriberId,
       channel: channelId,
       recipient,
+      enabled: true,
     },
   });
+
+  log.info(
+    `Created subscriber channel ${subscriberChannel.id} for subscriber ${subscriberId} and channel ${channelId}`
+  );
+
+  return subscriberChannel;
 }
 
 async function createSubscriptions(
   subscriberId: string,
   publisherIds: string[]
 ): Promise<Subscription[]> {
-  const subscriptions = publisherIds.map((publisherId) =>
-    payload.create({
+  log.info("About to create subscriptions.", {
+    subscriberId,
+    publisherIds,
+  });
+
+  const subscriptions = publisherIds.map(async (publisherId) => {
+    const subscription = await payload.create({
       collection: "subscriptions",
       data: {
         publisher: publisherId,
         subscriber: subscriberId,
       },
-    })
-  );
+    });
+
+    log.info(
+      `Created subscription ${subscription.id} for publisher ${publisherId}`
+    );
+    return subscription;
+  });
 
   return Promise.all(subscriptions);
 }
