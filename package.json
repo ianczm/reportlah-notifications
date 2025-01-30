@@ -13,6 +13,7 @@
     "prod:build": "dotenvx run -f .env.prod -- next build",
     "prod:start": "dotenvx run -f .env.prod -- next start",
     "local:seed": "dotenvx run -f .env -- payload run ./test/scripts/seed.ts",
+    "local:seed:templates": "dotenvx run -f .env -- payload run ./test/scripts/default-templates.ts",
     "local:serve": "dotenvx run -f .env -- next dev --turbopack",
     "local:build": "dotenvx run -f .env -- next build",
     "local:start": "dotenvx run -f .env -- next start"

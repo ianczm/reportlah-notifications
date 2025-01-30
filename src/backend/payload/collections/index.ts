@@ -1,4 +1,5 @@
 import { Channels } from "./Channels";
+import { DefaultTemplates } from "./DefaultTemplates";
 import { Events } from "./Events";
 import { EventTags } from "./EventTags";
 import { EventTypes } from "./EventTypes";
@@ -18,6 +19,7 @@ export const collections = [
   Users,
   Tenants,
   TenantMetadata,
+  DefaultTemplates,
   Templates,
   Subscriptions,
   Subscribers,

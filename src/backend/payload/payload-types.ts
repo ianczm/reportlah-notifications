@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     tenants: Tenant;
     tenantMetadata: TenantMetadatum;
+    'default-templates': DefaultTemplate;
     templates: Template;
     subscriptions: Subscription;
     subscribers: Subscriber;
@@ -43,6 +44,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     tenantMetadata: TenantMetadataSelect<false> | TenantMetadataSelect<true>;
+    'default-templates': DefaultTemplatesSelect<false> | DefaultTemplatesSelect<true>;
     templates: TemplatesSelect<false> | TemplatesSelect<true>;
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
@@ -115,7 +117,7 @@ export interface User {
 export interface Tenant {
   id: string;
   name: string;
-  slug: string;
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -125,13 +127,43 @@ export interface Tenant {
  */
 export interface TenantMetadatum {
   id: string;
-  name: string;
+  name?: string | null;
   tenant: string | Tenant;
   /**
    * @minItems 2
    * @maxItems 2
    */
   location: [number, number];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "default-templates".
+ */
+export interface DefaultTemplate {
+  id: string;
+  name?: string | null;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  channel: string | Channel;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channels".
+ */
+export interface Channel {
+  id: string;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -153,16 +185,6 @@ export interface Template {
     | null;
   channel: string | Channel;
   publisher: string | Publisher;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "channels".
- */
-export interface Channel {
-  id: string;
-  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -202,6 +224,7 @@ export interface Service {
 export interface EventTag {
   id: string;
   name: string;
+  service?: (string | null) | Service;
   'event-type': string | EventType;
   updatedAt: string;
   createdAt: string;
@@ -322,6 +345,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tenantMetadata';
         value: string | TenantMetadatum;
+      } | null)
+    | ({
+        relationTo: 'default-templates';
+        value: string | DefaultTemplate;
       } | null)
     | ({
         relationTo: 'templates';
@@ -451,6 +478,17 @@ export interface TenantMetadataSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "default-templates_select".
+ */
+export interface DefaultTemplatesSelect<T extends boolean = true> {
+  name?: T;
+  data?: T;
+  channel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "templates_select".
  */
 export interface TemplatesSelect<T extends boolean = true> {
@@ -568,6 +606,7 @@ export interface EventTypesSelect<T extends boolean = true> {
  */
 export interface EventTagsSelect<T extends boolean = true> {
   name?: T;
+  service?: T;
   'event-type'?: T;
   updatedAt?: T;
   createdAt?: T;

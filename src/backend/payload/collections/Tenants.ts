@@ -16,7 +16,6 @@ export const Tenants: CollectionConfig = {
       name: "slug",
       type: "text",
       unique: true,
-      required: true,
     },
   ],
 };

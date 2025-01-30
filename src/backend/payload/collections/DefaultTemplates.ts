@@ -1,10 +1,10 @@
 import type { CollectionConfig } from "payload";
 
-export const TenantMetadata: CollectionConfig = {
-  slug: "tenantMetadata",
+export const DefaultTemplates: CollectionConfig = {
+  slug: "default-templates",
   admin: {
     useAsTitle: "name",
-    group: "Metadata",
+    group: "Notifications",
   },
   fields: [
     {
@@ -22,26 +22,27 @@ export const TenantMetadata: CollectionConfig = {
         ],
         afterRead: [
           async ({ data, req }) => {
-            const tenant = await req.payload.findByID({
-              collection: "tenants",
-              id: data!.tenant,
+            const channel = await req.payload.findByID({
+              collection: "channels",
+              id: data!.channel,
+              depth: 0,
             });
-            return tenant.name;
+            return channel.name;
           },
         ],
       },
     },
     {
-      name: "tenant",
-      type: "relationship",
-      relationTo: "tenants",
+      name: "data",
+      type: "json",
       required: true,
-      unique: true,
     },
     {
-      name: "location",
-      type: "point",
+      name: "channel",
+      type: "relationship",
+      relationTo: "channels",
       required: true,
+      unique: true,
     },
   ],
 };

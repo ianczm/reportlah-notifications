@@ -9,8 +9,10 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 
+import { registerAction } from "@/backend/actions/register";
 import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
 import { REGISTRATION_FORM_SCHEMA } from "@/ui/features/register/validator";
 import { cn } from "@/ui/utils/tailwind";
@@ -24,6 +26,7 @@ const fieldNamesByPage: Record<number, string[]> = {
 function RegistrationForm() {
   const lastPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
+  const { executeAsync, isPending } = useAction(registerAction);
 
   const form = useForm({
     name: "registration-form",
@@ -74,8 +77,10 @@ function RegistrationForm() {
     });
   }
 
-  function handleFormSubmit(values: typeof form.values) {
+  async function handleFormSubmit(values: typeof form.values) {
     console.log(values);
+    const publisher = await executeAsync(values);
+    console.log(publisher);
   }
 
   return (
@@ -324,6 +329,7 @@ function RegistrationForm() {
                     fz="md"
                     fullWidth
                     type="submit"
+                    loading={isPending}
                   >
                     Submit
                   </Button>

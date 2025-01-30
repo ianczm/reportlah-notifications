@@ -13,6 +13,12 @@ export const EventTags: CollectionConfig = {
       required: true,
     },
     {
+      name: "service",
+      type: "relationship",
+      relationTo: "services",
+      required: false,
+    },
+    {
       name: "event-type",
       type: "relationship",
       relationTo: "event-types",
