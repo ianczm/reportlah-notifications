@@ -6,6 +6,8 @@
   "scripts": {
     "lint": "next lint",
     "payload": "dotenvx run -- payload",
+    "build": "next build",
+    "start": "next start",
     "prod:seed": "dotenvx run -f .env.prod -- payload run ./test/scripts/seed.ts",
     "prod:serve": "dotenvx run -f .env.prod -- next dev --turbopack",
     "prod:build": "dotenvx run -f .env.prod -- next build",
@@ -18,7 +20,7 @@
   "dependencies": {
     "@dotenvx/dotenvx": "^1.32.0",
     "@mantine/core": "^7.15.2",
-    "@mantine/form": "^7.15.2",
+    "@mantine/form": "^7.16.2",
     "@mantine/hooks": "^7.15.2",
     "@mantine/notifications": "^7.15.2",
     "@payloadcms/db-postgres": "^3.14.0",
@@ -28,6 +30,7 @@
     "@tabler/icons-react": "^3.26.0",
     "@trycourier/courier": "^6.3.1",
     "@uidotdev/usehooks": "^2.4.1",
+    "clsx": "^2.1.1",
     "graphql": "^16.10.0",
     "handlebars": "^4.7.8",
     "next": "15.1.3",
@@ -36,6 +39,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-qrcode-pretty": "^1.3.3",
+    "tailwind-merge": "^2.6.0",
     "uuid": "^11.0.3",
     "winston": "^3.17.0",
     "zod": "^3.24.1"
