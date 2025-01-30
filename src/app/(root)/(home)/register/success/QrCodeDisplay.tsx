@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { QrCode } from "react-qrcode-pretty";
 
@@ -17,17 +18,22 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   }, [publisherId]);
 
   return (
-    <QrCode
-      value={feedbackLink}
-      size={1024}
-      level="H"
-      variant="gravity"
-      divider
-      bgColor="transparent"
-      padding={80}
-      color="#fff7e7"
-      bgRounded
-    />
+    <Link
+      href={feedbackLink}
+      className="flex aspect-square h-fit items-center justify-center rounded-6xl bg-[#25251C]/0 transition-colors hover:bg-[#25251C]"
+    >
+      <QrCode
+        value={feedbackLink}
+        level="H"
+        variant="gravity"
+        divider
+        bgColor="transparent"
+        size={512}
+        padding={80}
+        color="#fff7e7"
+        bgRounded
+      />
+    </Link>
   );
 }
 
