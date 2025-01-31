@@ -50,19 +50,11 @@ async function SuccessPage({
           </LandingContent.Text>
           <Group gap="xs" mr={160}>
             <Tooltip label="Coming soon">
-              <Button
-                color="yellow.6"
-                c="black"
-                size="xl"
-                radius="xl"
-                fz="md"
-                disabled
-              >
+              <Button c="black" size="xl" radius="xl" fz="md" disabled>
                 Send a test notification
               </Button>
             </Tooltip>
             <Button
-              color="yellow.6"
               size="xl"
               radius="xl"
               variant="outline"

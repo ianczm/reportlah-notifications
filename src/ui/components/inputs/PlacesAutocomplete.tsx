@@ -6,9 +6,14 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 
-import { RegistrationFormSchema } from "@/ui/features/register/validator";
+import { RegistrationFormSchema } from "@/backend/features/register/validator";
 
 const loadScriptLibraries: ["places"] = ["places"];
+
+const INVALID_LOCATION = {
+  lat: Infinity,
+  lng: Infinity,
+};
 
 interface PlacesAutocompleteProps {
   form: UseFormReturnType<RegistrationFormSchema>;
@@ -104,11 +109,6 @@ function PlacesAutocompleteInput({
         combobox.closeDropdown();
       }}
       store={combobox}
-      classNames={{
-        dropdown:
-          "border-light-600 bg-white text-base text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
-        option: "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
-      }}
     >
       <Combobox.Target>
         <TextInput
@@ -117,8 +117,8 @@ function PlacesAutocompleteInput({
           label={label}
           placeholder={placeholder}
           value={value}
-          onChange={(event) => {
-            setValue(event.currentTarget.value);
+          onChange={(e) => {
+            setValue(e.currentTarget.value);
             combobox.openDropdown();
           }}
           onClick={() => combobox.openDropdown()}
@@ -129,6 +129,9 @@ function PlacesAutocompleteInput({
             }
           }}
           onBlur={(e) => {
+            if (!e.currentTarget.value) {
+              onCoordinatesSelect(INVALID_LOCATION);
+            }
             combobox.closeDropdown();
             if (onBlur) {
               onBlur(e);
@@ -136,19 +139,7 @@ function PlacesAutocompleteInput({
           }}
           error={error}
           disabled={!ready}
-          labelProps={{
-            fz: "md",
-            mb: "xs",
-            fw: "bold",
-          }}
-          classNames={{
-            input:
-              "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-            error: "text-sm",
-          }}
           required
-          size="xl"
-          radius="lg"
         />
       </Combobox.Target>
 

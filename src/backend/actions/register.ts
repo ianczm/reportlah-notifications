@@ -7,7 +7,7 @@ import { log } from "@/lib/winston";
 import {
   REGISTRATION_FORM_SCHEMA,
   RegistrationFormSchema,
-} from "@/ui/features/register/validator";
+} from "@/backend/features/register/validator";
 
 import payload from "../payload/payload";
 import {

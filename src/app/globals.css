@@ -7,6 +7,17 @@
   --color-light-800: 255 255 255;
 }
 
+/* For dark mode */
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: rgb(var(--color-dark-100)) !important;
+  --mantine-color-text: rgb(var(--color-light-700)) !important;
+}
+
+/* For light mode */
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-body: rgb(var(--color-light-700)) !important;
+}
+
 /* Autocomplete styling */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

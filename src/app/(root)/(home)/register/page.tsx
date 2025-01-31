@@ -13,7 +13,7 @@ async function RegistrationPage() {
   });
 
   return (
-    <main className="h-screen w-screen bg-dark-100">
+    <main className="h-screen w-screen">
       <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 px-5">
         <LandingContent>
           <LandingContent.Text>
@@ -26,19 +26,8 @@ async function RegistrationPage() {
             </LandingContent.Text.Description>
           </LandingContent.Text>
           <Group gap="xs" mr={160}>
-            <Button color="yellow.6" c="black" size="xl" radius="xl" fz="md">
-              Register as a Tenant
-            </Button>
-            <Button
-              color="yellow.6"
-              size="xl"
-              radius="xl"
-              variant="outline"
-              fz="md"
-              bd="2px solid"
-              component={Link}
-              href="/admin"
-            >
+            <Button>Register as a Tenant</Button>
+            <Button variant="outline" component={Link} href="/admin">
               Dashboard
             </Button>
           </Group>

@@ -16,7 +16,7 @@ function Description({ children }: { children: ReactNode }) {
 
 function Title({ children }: { children: ReactNode }) {
   return (
-    <h1 className="font-display text-6xl uppercase tracking-tight text-light-700">
+    <h1 className="font-display text-6xl uppercase tracking-tight">
       {children}
     </h1>
   );
