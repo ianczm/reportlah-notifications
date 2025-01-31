@@ -2,12 +2,12 @@
 
 import { redirect } from "next/navigation";
 
-import { actionClient } from "@/lib/safe-action";
-import { log } from "@/lib/winston";
 import {
   REGISTRATION_FORM_SCHEMA,
   RegistrationFormSchema,
 } from "@/backend/features/register/validator";
+import { actionClient } from "@/lib/safe-action";
+import { log } from "@/lib/winston";
 
 import payload from "../payload/payload";
 import {
