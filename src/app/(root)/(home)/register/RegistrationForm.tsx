@@ -118,10 +118,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="Enter your shop name"
                   type="text"
                   required
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                  }}
                 />
                 <PlacesAutocomplete
                   form={form}
@@ -138,10 +134,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="your@email.com"
                   type="email"
                   required
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                  }}
                 />
               </div>
               <div
@@ -157,13 +149,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   label="Password"
                   placeholder="Enter your password"
                   required
-                  classNames={{
-                    input:
-                      "border-light-600 text-base bg-white font-semibold text-dark-100 focus-within:border-dark-400",
-                    innerInput: "placeholder:text-dark-600",
-                    visibilityToggle:
-                      "hover:bg-dark-600/15 text-dark-600 hover:text-dark-600",
-                  }}
                 />
                 <PasswordInput
                   id="confirmPassword"
@@ -173,13 +158,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   label="Confirm Password"
                   placeholder="Confirm your password"
                   required
-                  classNames={{
-                    input:
-                      "border-light-600 text-base bg-white font-semibold text-dark-100 focus-within:border-dark-400",
-                    innerInput: "placeholder:text-dark-600",
-                    visibilityToggle:
-                      "hover:bg-dark-600/15 text-dark-600 hover:text-dark-600",
-                  }}
                 />
               </div>
               <div
@@ -198,14 +176,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                     value: channel.id,
                     label: channel.name,
                   }))}
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    dropdown:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
-                    option:
-                      "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
-                  }}
                   radius="lg"
                   size="xl"
                   required
@@ -219,10 +189,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="Enter your identifier"
                   type="text"
                   required
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                  }}
                 />
                 <Checkbox
                   id="terms"
@@ -230,10 +196,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   key={form.key("terms")}
                   {...form.getInputProps("terms", { type: "checkbox" })}
                   label="I agree to the terms and conditions"
-                  classNames={{
-                    input:
-                      "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                  }}
                   required
                 />
               </div>

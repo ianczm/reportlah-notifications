@@ -2,12 +2,17 @@
 
 import {
   Button,
+  Checkbox,
+  Combobox,
   createTheme,
   defaultVariantColorsResolver,
+  Input,
   InputBase,
   InputError,
   InputLabel,
   MantineProvider,
+  PasswordInput,
+  Select,
   VariantColorResolverResult,
   VariantColorsResolverInput,
 } from "@mantine/core";
@@ -49,6 +54,22 @@ const theme = createTheme({
         size: "xl",
       },
     }),
+    Input: Input.extend({
+      classNames: {
+        input:
+          "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
+      },
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        size: "xl",
+      },
+      classNames: {
+        innerInput: "placeholder:text-dark-600",
+        visibilityToggle:
+          "hover:bg-dark-600/15 text-dark-600 hover:text-dark-600",
+      },
+    }),
     InputLabel: InputLabel.extend({
       defaultProps: {
         fz: "md",
@@ -60,6 +81,29 @@ const theme = createTheme({
       defaultProps: {
         fz: "sm",
         lh: "sm",
+      },
+    }),
+    Checkbox: Checkbox.extend({
+      defaultProps: {
+        radius: "md",
+      },
+      classNames: {
+        input:
+          "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
+      },
+    }),
+    Select: Select.extend({
+      classNames: {
+        dropdown:
+          "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
+        option: "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
+      },
+    }),
+    Combobox: Combobox.extend({
+      classNames: {
+        dropdown:
+          "border-light-600 bg-white text-base text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
+        option: "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
       },
     }),
   },
