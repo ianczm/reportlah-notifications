@@ -176,8 +176,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                     value: channel.id,
                     label: channel.name,
                   }))}
-                  radius="lg"
-                  size="xl"
                   required
                 />
                 <TextInput
