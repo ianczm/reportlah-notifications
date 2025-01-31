@@ -1,10 +1,8 @@
-import {
-  ColorSchemeScript,
-  mantineHtmlProps,
-  MantineProvider,
-} from "@mantine/core";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Inter, Paytone_One } from "next/font/google";
+
+import Providers from "@/ui/providers";
 
 import type { Metadata } from "next";
 
@@ -37,16 +35,15 @@ export default function RootLayout({
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body
         className={`${primaryFont.variable} ${displayFont.variable} ${primaryFont.className} antialiased`}
       >
-        <ColorSchemeScript defaultColorScheme="dark" />
-        <MantineProvider defaultColorScheme="dark">
+        <Providers>
           <Notifications />
           {children}
-        </MantineProvider>
+        </Providers>
       </body>
     </html>
   );

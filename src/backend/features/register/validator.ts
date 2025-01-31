@@ -7,8 +7,14 @@ export const REGISTRATION_FORM_SCHEMA = z
     password: z.string().min(6),
     confirmPassword: z.string().min(6),
     location: z.object({
-      longtitude: z.number().min(-180).max(180),
-      latitude: z.number().min(-90).max(90),
+      longtitude: z
+        .number({ errorMap: () => ({ message: "Location must be valid" }) })
+        .min(-180)
+        .max(180),
+      latitude: z
+        .number({ errorMap: () => ({ message: "Location must be valid" }) })
+        .min(-90)
+        .max(90),
     }),
     channelId: z.string().uuid(),
     recipient: z.string().nonempty(),

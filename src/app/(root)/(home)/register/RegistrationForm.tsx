@@ -13,9 +13,9 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 
 import { registerAction } from "@/backend/actions/register";
+import { REGISTRATION_FORM_SCHEMA } from "@/backend/features/register/validator";
 import { Channel } from "@/backend/payload/payload-types";
 import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
-import { REGISTRATION_FORM_SCHEMA } from "@/ui/features/register/validator";
 import { cn } from "@/ui/utils/tailwind";
 
 const fieldNamesByPage: Record<number, string[]> = {
@@ -118,17 +118,9 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="Enter your shop name"
                   type="text"
                   required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   classNames={{
                     input:
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    error: "text-sm",
                   }}
                 />
                 <PlacesAutocomplete
@@ -146,17 +138,9 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="your@email.com"
                   type="email"
                   required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   classNames={{
                     input:
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    error: "text-sm",
                   }}
                 />
               </div>
@@ -173,20 +157,12 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   label="Password"
                   placeholder="Enter your password"
                   required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   classNames={{
                     input:
                       "border-light-600 text-base bg-white font-semibold text-dark-100 focus-within:border-dark-400",
                     innerInput: "placeholder:text-dark-600",
                     visibilityToggle:
                       "hover:bg-dark-600/15 text-dark-600 hover:text-dark-600",
-                    error: "text-sm",
                   }}
                 />
                 <PasswordInput
@@ -197,20 +173,12 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   label="Confirm Password"
                   placeholder="Confirm your password"
                   required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   classNames={{
                     input:
                       "border-light-600 text-base bg-white font-semibold text-dark-100 focus-within:border-dark-400",
                     innerInput: "placeholder:text-dark-600",
                     visibilityToggle:
                       "hover:bg-dark-600/15 text-dark-600 hover:text-dark-600",
-                    error: "text-sm",
                   }}
                 />
               </div>
@@ -237,15 +205,9 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
                     option:
                       "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
-                    error: "text-sm",
                   }}
                   radius="lg"
                   size="xl"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   required
                 />
                 <TextInput
@@ -257,17 +219,9 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   placeholder="Enter your identifier"
                   type="text"
                   required
-                  size="xl"
-                  radius="lg"
-                  labelProps={{
-                    fz: "md",
-                    mb: "xs",
-                    fw: "bold",
-                  }}
                   classNames={{
                     input:
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    error: "text-sm",
                   }}
                 />
                 <Checkbox
@@ -279,7 +233,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   classNames={{
                     input:
                       "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400",
-                    error: "text-sm",
                   }}
                   required
                 />
@@ -290,43 +243,21 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
               <Stack gap="xs">
                 {currentPage > 0 && (
                   <Button
-                    color="yellow.6"
                     variant="outline"
-                    c="black"
-                    size="xl"
-                    radius="xl"
-                    fz="md"
                     fullWidth
                     onClick={handlePrevPage}
-                    style={{ borderWidth: 2 }}
+                    classNames={{ inner: "text-black" }}
                   >
                     Back
                   </Button>
                 )}
                 {currentPage < lastPage && (
-                  <Button
-                    color="yellow.6"
-                    c="black"
-                    size="xl"
-                    radius="xl"
-                    fz="md"
-                    fullWidth
-                    onClick={handleNextPage}
-                  >
+                  <Button fullWidth onClick={handleNextPage}>
                     Next
                   </Button>
                 )}
                 {currentPage === lastPage && (
-                  <Button
-                    color="yellow.6"
-                    c="black"
-                    size="xl"
-                    radius="xl"
-                    fz="md"
-                    fullWidth
-                    type="submit"
-                    loading={isPending}
-                  >
+                  <Button fullWidth type="submit" loading={isPending}>
                     Submit
                   </Button>
                 )}
