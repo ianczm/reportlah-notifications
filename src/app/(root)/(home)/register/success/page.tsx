@@ -50,19 +50,9 @@ async function SuccessPage({
           </LandingContent.Text>
           <Group gap="xs">
             <Tooltip label="Coming soon">
-              <Button c="black" size="xl" radius="xl" fz="md" disabled>
-                Send a test notification
-              </Button>
+              <Button disabled>Send a test notification</Button>
             </Tooltip>
-            <Button
-              size="xl"
-              radius="xl"
-              variant="outline"
-              fz="md"
-              bd="2px solid"
-              component={Link}
-              href="/admin"
-            >
+            <Button variant="outline" component={Link} href="/admin">
               Dashboard
             </Button>
           </Group>

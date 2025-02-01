@@ -87,18 +87,18 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
 
   return (
     <div className="flex w-full flex-col justify-end text-dark-100">
-      <div className="h-[85vh] rounded-t-6xl bg-light-700 p-16">
+      <div className="h-[85vh] rounded-t-3xl bg-light-700 p-8 md:rounded-t-6xl md:p-16">
         {/* Form */}
         <form className="h-full" onSubmit={form.onSubmit(handleFormSubmit)}>
-          <div className="flex h-full flex-col justify-between">
+          <div className="flex h-full flex-col justify-between gap-16">
             {/* Form Display */}
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-8 md:gap-16">
               {/* Form Text */}
-              <div className="flex flex-col gap-8">
-                <h2 className="font-display text-3xl uppercase">
+              <div className="flex flex-col gap-4 md:gap-8">
+                <h2 className="font-display text-2xl uppercase md:text-3xl">
                   Register as a Tenant
                 </h2>
-                <p className="text-xl font-bold text-dark-400">
+                <p className="text-lg font-bold text-dark-400 md:text-xl">
                   Create an account with us. We&apos;ll generate a QR code for
                   your customers to provide feedback.
                 </p>

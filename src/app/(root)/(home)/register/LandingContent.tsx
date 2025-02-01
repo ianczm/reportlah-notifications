@@ -13,12 +13,14 @@ function Text({ children }: { children: ReactNode }) {
 }
 
 function Description({ children }: { children: ReactNode }) {
-  return <p className="text-xl font-bold text-light-600">{children}</p>;
+  return (
+    <p className="text-lg font-bold text-light-600 md:text-xl">{children}</p>
+  );
 }
 
 function Title({ children }: { children: ReactNode }) {
   return (
-    <h1 className="font-display text-6xl uppercase tracking-tight">
+    <h1 className="font-display text-5xl uppercase tracking-tight md:text-6xl">
       {children}
     </h1>
   );
