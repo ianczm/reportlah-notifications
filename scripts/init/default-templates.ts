@@ -39,7 +39,7 @@ export async function seedDefaultTemplates() {
       collection: "default-templates",
       data: {
         channel: channel.id,
-        data: buildTemplateBody(channel.name),
+        data: buildTemplateBody(channel.name!),
       },
     })
   );

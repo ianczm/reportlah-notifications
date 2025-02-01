@@ -1,4 +1,5 @@
 import { Button, Group } from "@mantine/core";
+import _ from "lodash";
 import Link from "next/link";
 
 import payload from "@/backend/payload/payload";
@@ -6,11 +7,20 @@ import payload from "@/backend/payload/payload";
 import LandingContent from "./LandingContent";
 import RegistrationForm from "./RegistrationForm";
 
-async function RegistrationPage() {
+async function getChannels() {
   const channels = await payload.find({
     collection: "channels",
     depth: 0,
   });
+
+  return _(channels.docs)
+    .groupBy((channel) => channel.provider)
+    .map((channels, channelName) => ({ channelName, channels }))
+    .value();
+}
+
+async function RegistrationPage() {
+  const channelGroups = await getChannels();
 
   return (
     <main className="h-screen w-screen">
@@ -32,7 +42,7 @@ async function RegistrationPage() {
             </Button>
           </Group>
         </LandingContent>
-        <RegistrationForm channels={channels.docs} />
+        <RegistrationForm channelGroups={channelGroups} />
       </section>
     </main>
   );

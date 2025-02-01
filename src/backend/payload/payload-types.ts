@@ -163,7 +163,9 @@ export interface DefaultTemplate {
  */
 export interface Channel {
   id: string;
-  name: string;
+  name?: string | null;
+  provider: string;
+  recipientType: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -617,6 +619,8 @@ export interface EventTagsSelect<T extends boolean = true> {
  */
 export interface ChannelsSelect<T extends boolean = true> {
   name?: T;
+  provider?: T;
+  recipientType?: T;
   updatedAt?: T;
   createdAt?: T;
 }

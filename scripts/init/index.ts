@@ -33,13 +33,22 @@ const seed = async () => {
     payload.create({
       collection: "channels",
       data: {
-        name: "Courier",
+        provider: "Courier",
+        recipientType: "Default",
       },
     }),
     payload.create({
       collection: "channels",
       data: {
-        name: "Discord",
+        provider: "Discord",
+        recipientType: "User",
+      },
+    }),
+    payload.create({
+      collection: "channels",
+      data: {
+        provider: "Discord",
+        recipientType: "Channel",
       },
     }),
   ]);
@@ -83,6 +92,14 @@ const seed = async () => {
       collection: "event-tags",
       data: {
         name: "Dish Washing",
+        "event-type": feedbackEventType.id,
+        service: foodService.id,
+      },
+    }),
+    payload.create({
+      collection: "event-tags",
+      data: {
+        name: "Test Tag",
         "event-type": feedbackEventType.id,
         service: foodService.id,
       },

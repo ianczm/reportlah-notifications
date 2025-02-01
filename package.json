@@ -7,6 +7,7 @@
     "lint": "next lint",
     "build": "next build",
     "start": "next start",
+    "ci": "payload migrate && npm run build",
     "prod:payload": "dotenvx run -f .env.prod -- payload",
     "prod:seed:init": "dotenvx run -f .env.prod -- payload run ./scripts/init/index.ts",
     "prod:serve": "dotenvx run -f .env.prod -- next dev --turbopack",
