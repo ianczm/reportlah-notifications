@@ -104,6 +104,8 @@ const theme = createTheme({
         dropdown:
           "border-light-600 bg-white text-base font-semibold text-dark-100 placeholder:text-dark-600 focus:border-dark-400 rounded-2xl",
         option: "hover:bg-dark-600/15 text-dark-100 text-sm rounded-xl",
+        groupLabel:
+          "text-xs uppercase tracking-wide text-dark-600 after:bg-dark-600",
       },
     }),
     Combobox: Combobox.extend({

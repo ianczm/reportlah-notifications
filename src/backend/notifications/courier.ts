@@ -27,10 +27,26 @@ type PopulatedEvent = {
 
 const REQUEST_FACTORY: Record<
   string,
-  (params: BuildNotificationMessageParams) => Promise<SendMessageRequest>
+  Record<
+    string,
+    {
+      requestKey: string;
+      builder: (
+        params: BuildNotificationMessageParams
+      ) => Promise<SendMessageRequest>;
+    }
+  >
 > = {
-  courier: buildCourierRequest,
-  discord: buildCourierDiscordRequest,
+  courier: {
+    default: { requestKey: "user_id", builder: buildCourierRequest },
+  },
+  discord: {
+    user: { requestKey: "user_id", builder: buildCourierDiscordUserRequest },
+    channel: {
+      requestKey: "channel_id",
+      builder: buildCourierDiscordUserRequest,
+    },
+  },
 };
 
 async function getTemplateDataOrDefault(
@@ -77,9 +93,9 @@ async function getTemplateDataOrDefault(
     return defaultTemplate.docs[0].data as CourierTemplateData;
   }
 
-  throw new Error(
-    `No template nor default template was found for publisher ${publisher.id} and channel ${channel.id} for event ${eventId}.`
-  );
+  const errorMessage = `No template nor default template was found for publisher ${publisher.id} and channel ${channel.id} for event ${eventId}.`;
+  log.error(errorMessage);
+  throw new Error(errorMessage);
 }
 
 export async function sendCourierRequest({
@@ -160,10 +176,17 @@ export async function sendCourierRequest({
           eventId
         );
 
-        const channelName = channel.name.toLowerCase();
-        const channelRequestBuilder = REQUEST_FACTORY[channelName];
+        const channelProvider = channel.provider.toLowerCase();
+        const channelType = channel.recipientType.toLowerCase();
+        const { requestKey, builder } =
+          REQUEST_FACTORY[channelProvider][channelType];
 
-        const request = await channelRequestBuilder({
+        log.info(
+          `Found request key for channel ${channel.id}, ${channel.name}`
+        );
+
+        const request = await builder({
+          requestKey,
           subscriberChannel,
           template: template,
           service: service,
@@ -200,6 +223,7 @@ export async function sendCourierRequest({
 }
 
 export type BuildNotificationMessageParams = {
+  requestKey: string;
   subscriberChannel: SubscriberChannel;
   template: CourierTemplateData;
   service: Service;
@@ -209,7 +233,8 @@ export type BuildNotificationMessageParams = {
   count: number;
 };
 
-export async function buildCourierDiscordRequest({
+export async function buildCourierDiscordUserRequest({
+  requestKey,
   subscriberChannel,
   template,
   service,
@@ -237,7 +262,7 @@ export async function buildCourierDiscordRequest({
   return {
     message: {
       to: {
-        discord: { user_id: subscriberChannel.recipient },
+        discord: { [requestKey]: subscriberChannel.recipient },
       },
       template: template.templateId,
       data: compiledData,
@@ -246,6 +271,7 @@ export async function buildCourierDiscordRequest({
 }
 
 export async function buildCourierRequest({
+  requestKey,
   subscriberChannel,
   template,
   service,
@@ -273,7 +299,7 @@ export async function buildCourierRequest({
   return {
     message: {
       to: {
-        user_id: subscriberChannel.recipient,
+        [requestKey]: subscriberChannel.recipient,
       },
       template: template.templateId,
       data: compiledData,

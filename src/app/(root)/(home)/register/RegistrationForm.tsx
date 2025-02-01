@@ -24,11 +24,31 @@ const fieldNamesByPage: Record<number, string[]> = {
   2: ["channelId", "recipient", "terms"],
 };
 
-type RegistrationFormProps = {
+type ChannelGroup = {
+  channelName: string;
   channels: Channel[];
 };
 
-function RegistrationForm({ channels }: RegistrationFormProps) {
+type ChannelOption = {
+  group: string;
+  items: { value: string; label: string }[];
+};
+
+type RegistrationFormProps = {
+  channelGroups: ChannelGroup[];
+};
+
+function channelGroupToOptions(channelGroups: ChannelGroup[]): ChannelOption[] {
+  return channelGroups.map((channelGroup) => ({
+    group: channelGroup.channelName,
+    items: channelGroup.channels.map((channel) => ({
+      label: channel.recipientType,
+      value: channel.id,
+    })),
+  }));
+}
+
+function RegistrationForm({ channelGroups }: RegistrationFormProps) {
   const lastPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const { executeAsync, isPending } = useAction(registerAction);
@@ -172,10 +192,7 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   {...form.getInputProps("channelId")}
                   label="Notifications Channel"
                   placeholder="Select your channel"
-                  data={channels.map((channel) => ({
-                    value: channel.id,
-                    label: channel.name,
-                  }))}
+                  data={channelGroupToOptions(channelGroups)}
                   required
                 />
                 <TextInput
@@ -216,7 +233,9 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                     variant="outline"
                     fullWidth
                     onClick={handlePrevPage}
-                    classNames={{ inner: "text-black" }}
+                    styles={{
+                      inner: { color: "black" },
+                    }}
                   >
                     Back
                   </Button>
