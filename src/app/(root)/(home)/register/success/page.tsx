@@ -34,7 +34,7 @@ async function SuccessPage({
 
   return (
     <main className="h-screen w-screen bg-dark-100">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 px-5">
+      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] px-5 xl:grid-cols-[1fr_1fr] xl:grid-rows-[auto]">
         <LandingContent>
           <LandingContent.Text>
             <LandingContent.Text.Title>
@@ -48,7 +48,7 @@ async function SuccessPage({
               immediately of any feedback.
             </LandingContent.Text.Description>
           </LandingContent.Text>
-          <Group gap="xs" mr={160}>
+          <Group gap="xs">
             <Tooltip label="Coming soon">
               <Button c="black" size="xl" radius="xl" fz="md" disabled>
                 Send a test notification

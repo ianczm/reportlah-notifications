@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 function LandingContent({ children }: { children: ReactNode }) {
   return (
-    <div className="flex w-full flex-col justify-center gap-12 text-balance">
+    <div className="flex w-full flex-col justify-center gap-12 text-balance max-xl:min-h-[75vh] max-xl:items-center max-xl:text-center">
       {children}
     </div>
   );
