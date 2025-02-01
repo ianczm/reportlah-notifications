@@ -20,7 +20,7 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   return (
     <Link
       href={feedbackLink}
-      className="flex aspect-square h-fit items-center justify-center rounded-6xl bg-[#25251C]/0 p-20 transition-colors hover:bg-[#25251C]"
+      className="flex aspect-square h-fit items-center justify-center rounded-6xl bg-[#25251C]/0 p-10 transition-colors hover:bg-[#25251C] md:p-20"
     >
       <QrCode
         value={feedbackLink}
