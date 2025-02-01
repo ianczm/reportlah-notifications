@@ -3,6 +3,8 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from "@payloadcms/db-postgres";
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
 
+    ALTER TABLE "channels" ALTER COLUMN "name" DROP NOT NULL;
+    
     ALTER TABLE "channels" ADD COLUMN "provider" varchar;
     ALTER TABLE "channels" ADD COLUMN "recipient_type" varchar;
 
