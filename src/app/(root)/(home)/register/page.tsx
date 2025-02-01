@@ -14,7 +14,7 @@ async function RegistrationPage() {
 
   return (
     <main className="h-screen w-screen">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 px-5">
+      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 px-5 xl:grid-cols-[1fr_1fr] xl:grid-rows-[auto]">
         <LandingContent>
           <LandingContent.Text>
             <LandingContent.Text.Title>
@@ -25,7 +25,7 @@ async function RegistrationPage() {
               Roll out best practices where they matter.
             </LandingContent.Text.Description>
           </LandingContent.Text>
-          <Group gap="xs" mr={160}>
+          <Group gap="xs">
             <Button>Register as a Tenant</Button>
             <Button variant="outline" component={Link} href="/admin">
               Dashboard
