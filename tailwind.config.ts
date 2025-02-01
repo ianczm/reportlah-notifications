@@ -37,6 +37,9 @@ export default {
       borderRadius: {
         "6xl": "2.5rem",
       },
+      spacing: {
+        "15": "3.75rem",
+      },
     },
   },
   plugins: [],

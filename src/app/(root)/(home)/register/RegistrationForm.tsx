@@ -87,10 +87,10 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
 
   return (
     <div className="flex w-full flex-col justify-end text-dark-100">
-      <div className="h-[85vh] rounded-t-3xl bg-light-700 p-8 md:rounded-t-6xl md:p-16">
+      <div className="h-[90vh] rounded-t-3xl bg-light-700 p-8 md:rounded-t-6xl md:p-16">
         {/* Form */}
         <form className="h-full" onSubmit={form.onSubmit(handleFormSubmit)}>
-          <div className="flex h-full flex-col justify-between gap-16">
+          <div className="flex h-full flex-col justify-between gap-8 md:gap-16">
             {/* Form Display */}
             <div className="flex flex-col gap-8 md:gap-16">
               {/* Form Text */}
@@ -98,7 +98,7 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                 <h2 className="font-display text-2xl uppercase md:text-3xl">
                   Register as a Tenant
                 </h2>
-                <p className="text-lg font-bold text-dark-400 md:text-xl">
+                <p className="text-base font-bold text-dark-400 md:text-lg">
                   Create an account with us. We&apos;ll generate a QR code for
                   your customers to provide feedback.
                 </p>
@@ -123,7 +123,7 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                   form={form}
                   name="location"
                   label="Shop Location"
-                  placeholder="Enter your shop location coordinates"
+                  placeholder="Enter your shop address"
                 />
                 <TextInput
                   id="email"
@@ -201,16 +201,6 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
             {/* Button */}
             <div>
               <Stack gap="xs">
-                {currentPage > 0 && (
-                  <Button
-                    variant="outline"
-                    fullWidth
-                    onClick={handlePrevPage}
-                    classNames={{ inner: "text-black" }}
-                  >
-                    Back
-                  </Button>
-                )}
                 {currentPage < lastPage && (
                   <Button fullWidth onClick={handleNextPage}>
                     Next
@@ -219,6 +209,16 @@ function RegistrationForm({ channels }: RegistrationFormProps) {
                 {currentPage === lastPage && (
                   <Button fullWidth type="submit" loading={isPending}>
                     Submit
+                  </Button>
+                )}
+                {currentPage > 0 && (
+                  <Button
+                    variant="outline"
+                    fullWidth
+                    onClick={handlePrevPage}
+                    classNames={{ inner: "text-black" }}
+                  >
+                    Back
                   </Button>
                 )}
               </Stack>

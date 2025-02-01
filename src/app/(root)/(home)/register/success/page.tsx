@@ -1,4 +1,4 @@
-import { Button, Group, Tooltip } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -34,7 +34,7 @@ async function SuccessPage({
 
   return (
     <main className="h-screen w-screen bg-dark-100">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] px-5 xl:grid-cols-[1fr_1fr] xl:grid-rows-[auto]">
+      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] md:px-5 xl:grid-cols-[1fr_1fr] xl:grid-rows-[auto]">
         <LandingContent>
           <LandingContent.Text>
             <LandingContent.Text.Title>
@@ -49,15 +49,15 @@ async function SuccessPage({
             </LandingContent.Text.Description>
           </LandingContent.Text>
           <Group gap="xs">
-            <Tooltip label="Coming soon">
-              <Button disabled>Send a test notification</Button>
-            </Tooltip>
+            <Button component={Link} href={`/feedback/${publisherId}`}>
+              Get started
+            </Button>
             <Button variant="outline" component={Link} href="/admin">
               Dashboard
             </Button>
           </Group>
         </LandingContent>
-        <div className="flex w-full flex-col justify-center gap-12">
+        <div className="flex w-full flex-col justify-center">
           <QrCodeDisplay publisherId={publisherId}></QrCodeDisplay>
         </div>
       </section>
