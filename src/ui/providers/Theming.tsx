@@ -46,7 +46,9 @@ const theme = createTheme({
     Button: Button.extend({
       defaultProps: {
         size: "xl",
-        fz: { base: "sm", sm: "md" },
+        classNames: {
+          root: "px-6 md:px-8 text-sm md:text-base",
+        },
         color: "yellow.6",
       },
     }),

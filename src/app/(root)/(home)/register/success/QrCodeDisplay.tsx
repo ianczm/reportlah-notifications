@@ -20,7 +20,7 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   return (
     <Link
       href={feedbackLink}
-      className="flex aspect-square h-fit items-center justify-center rounded-6xl bg-[#25251C]/0 p-10 transition-colors hover:bg-[#25251C] md:p-20"
+      className="block rounded-3xl bg-[#25251C]/0 p-8 transition-colors hover:bg-[#25251C] md:rounded-6xl md:p-16"
     >
       <QrCode
         value={feedbackLink}
@@ -29,8 +29,9 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
         divider
         bgColor="transparent"
         size={1024}
-        /* QrCode can accept string values as well */
-        resize={"100%" as unknown as number}
+        canvasProps={{
+          className: "w-full h-full",
+        }}
         color="#fff7e7"
         bgRounded
       />
