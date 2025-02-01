@@ -2,12 +2,14 @@ import { ReactNode } from "react";
 
 function LandingContent({ children }: { children: ReactNode }) {
   return (
-    <div className="flex w-full flex-col justify-center gap-12">{children}</div>
+    <div className="flex w-full flex-col justify-center gap-12 text-balance">
+      {children}
+    </div>
   );
 }
 
 function Text({ children }: { children: ReactNode }) {
-  return <div className="mr-40 flex flex-col gap-8">{children}</div>;
+  return <div className="flex max-w-xl flex-col gap-8">{children}</div>;
 }
 
 function Description({ children }: { children: ReactNode }) {

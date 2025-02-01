@@ -14,7 +14,7 @@ async function RegistrationPage() {
 
   return (
     <main className="h-screen w-screen">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 px-5">
+      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-2 gap-5 px-5">
         <LandingContent>
           <LandingContent.Text>
             <LandingContent.Text.Title>
