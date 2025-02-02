@@ -1,22 +1,26 @@
 "use client";
 
+import { Skeleton } from "@mantine/core";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { QrCode } from "react-qrcode-pretty";
 
-function generateFeedbackLink(publisherId: string) {
-  const url = new URL(`/feedback/${publisherId}`, `${window.location.origin}`);
+import { useLocation } from "@/ui/hooks/useLocation";
+
+function generateFeedbackLink(publisherId: string, location: Location) {
+  const url = new URL(`/feedback/${publisherId}`, `${location.origin}`);
   return url.href;
 }
 
 function QrCodeDisplay({ publisherId }: { publisherId: string }) {
-  const [feedbackLink, setFeedbackLink] = useState<string>("");
+  const location = useLocation();
 
-  useEffect(() => {
-    const link = generateFeedbackLink(publisherId);
-    setFeedbackLink(link);
-  }, [publisherId]);
+  if (!location) {
+    return (
+      <Skeleton className="aspect-square w-full rounded-3xl md:rounded-6xl" />
+    );
+  }
 
+  const feedbackLink = generateFeedbackLink(publisherId, location);
   return (
     <Link
       href={feedbackLink}

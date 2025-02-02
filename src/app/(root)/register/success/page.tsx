@@ -5,9 +5,10 @@ import { notFound } from "next/navigation";
 import payload from "@/backend/payload/payload";
 import { Service, Tenant } from "@/backend/payload/payload-types";
 import { log } from "@/lib/winston";
+import LandingGrid from "@/ui/components/layout/LandingGrid";
 
-import LandingContent from "../LandingContent";
 import QrCodeDisplay from "./QrCodeDisplay";
+import Landing from "../../../../ui/components/layout/Landing";
 
 async function getPublisher(publisherId: string) {
   try {
@@ -34,20 +35,21 @@ async function SuccessPage({
 
   return (
     <main className="h-screen w-screen bg-dark-100">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] md:px-5 xl:grid-cols-[1fr_1fr] xl:grid-rows-[auto]">
-        <LandingContent>
-          <LandingContent.Text>
-            <LandingContent.Text.Title>
+      <LandingGrid>
+        {/* Left */}
+        <Landing>
+          <Landing.TextContainer>
+            <Landing.TextContainer.Title>
               Welcome to the club!
-            </LandingContent.Text.Title>
-            <LandingContent.Text.Description>
+            </Landing.TextContainer.Title>
+            <Landing.TextContainer.Description>
               {tenant.name} is all set up for {service.name}!
-            </LandingContent.Text.Description>
-            <LandingContent.Text.Description>
+            </Landing.TextContainer.Description>
+            <Landing.TextContainer.Description>
               Let your customers scan the QR, and you&apos;ll be notified
               immediately of any feedback.
-            </LandingContent.Text.Description>
-          </LandingContent.Text>
+            </Landing.TextContainer.Description>
+          </Landing.TextContainer>
           <Group gap="xs">
             <Button component={Link} href={`/feedback/${publisherId}`}>
               Get started
@@ -56,11 +58,12 @@ async function SuccessPage({
               Dashboard
             </Button>
           </Group>
-        </LandingContent>
+        </Landing>
+        {/* Right */}
         <div className="flex w-full flex-col justify-center">
           <QrCodeDisplay publisherId={publisherId}></QrCodeDisplay>
         </div>
-      </section>
+      </LandingGrid>
     </main>
   );
 }

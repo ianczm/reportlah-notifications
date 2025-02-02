@@ -1,36 +1,28 @@
-"use client";
-
 import { Button, Group, Stack } from "@mantine/core";
 import Link from "next/link";
-import { useAction } from "next-safe-action/hooks";
-import { useEffect, useState } from "react";
 
-import { getAllPublishersAction } from "@/backend/actions/payload";
-import { Publisher, Service, Tenant } from "@/backend/payload/payload-types";
+import { Tenant } from "@/backend/payload/payload-types";
+import LandingGrid from "@/ui/components/layout/LandingGrid";
+import { H2 } from "@/ui/components/typography/Header";
 
-import LandingContent from "./register/LandingContent";
+import { getAllPublisherGroups } from "./fetchData";
+import Landing from "../../../ui/components/layout/Landing";
 
-export default function Home() {
-  const [publishers, setPublishers] = useState<Publisher[]>([]);
-
-  const { execute } = useAction(getAllPublishersAction, {
-    onSuccess: ({ data }) => setPublishers(data!),
-  });
-
-  useEffect(execute, [execute]);
-
+export default async function Home() {
+  const publisherGroups = await getAllPublisherGroups();
   return (
     <main className="h-screen w-screen">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
-        <LandingContent>
-          <LandingContent.Text>
-            <LandingContent.Text.Title>
+      <LandingGrid>
+        {/* Left */}
+        <Landing>
+          <Landing.TextContainer>
+            <Landing.TextContainer.Title>
               Welcome to ReportLah!
-            </LandingContent.Text.Title>
-            <LandingContent.Text.Description>
+            </Landing.TextContainer.Title>
+            <Landing.TextContainer.Description>
               Here is our list of coffeeshops you can give feedback to.
-            </LandingContent.Text.Description>
-          </LandingContent.Text>
+            </Landing.TextContainer.Description>
+          </Landing.TextContainer>
           <Group gap="xs">
             <Button component={Link} href="/register">
               Register as a Tenant
@@ -39,25 +31,31 @@ export default function Home() {
               Dashboard
             </Button>
           </Group>
-        </LandingContent>
-        <div className="flex flex-col justify-center max-xl:p-8">
-          <Stack>
-            {publishers.map((publisher) => {
-              const service = publisher.service as Service;
-              const tenant = publisher.tenant as Tenant;
-              return (
-                <Button
-                  component={Link}
-                  key={publisher.id}
-                  href={`/feedback/${publisher.id}`}
-                >
-                  {service.name} | {tenant.name}
-                </Button>
-              );
-            })}
-          </Stack>
+        </Landing>
+        {/* Right */}
+        <div className="flex flex-col justify-center gap-16 max-xl:p-8">
+          {publisherGroups.map(({ serviceName, publishers }) => (
+            <div key={serviceName} className="flex flex-col gap-8">
+              <H2>{serviceName}</H2>
+              <Stack key={serviceName}>
+                {publishers.map((publisher) => {
+                  const tenant = publisher.tenant as Tenant;
+                  return (
+                    <Button
+                      component={Link}
+                      key={publisher.id}
+                      href={`/feedback/${publisher.id}`}
+                      justify="start"
+                    >
+                      {tenant.name}
+                    </Button>
+                  );
+                })}
+              </Stack>
+            </div>
+          ))}
         </div>
-      </section>
+      </LandingGrid>
     </main>
   );
 }

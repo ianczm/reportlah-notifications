@@ -16,6 +16,7 @@ import { registerAction } from "@/backend/actions/register";
 import { REGISTRATION_FORM_SCHEMA } from "@/backend/features/register/validator";
 import { Channel } from "@/backend/payload/payload-types";
 import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
+import { H2 } from "@/ui/components/typography/Header";
 import { cn } from "@/ui/utils/tailwind";
 
 const fieldNamesByPage: Record<number, string[]> = {
@@ -115,9 +116,7 @@ function RegistrationForm({ channelGroups }: RegistrationFormProps) {
             <div className="flex flex-col gap-8 md:gap-16">
               {/* Form Text */}
               <div className="flex flex-col gap-4 md:gap-8">
-                <h2 className="font-display text-2xl uppercase md:text-3xl">
-                  Register as a Tenant
-                </h2>
+                <H2>Register as a Tenant</H2>
                 <p className="text-base font-bold text-dark-400 md:text-lg">
                   Create an account with us. We&apos;ll generate a QR code for
                   your customers to provide feedback.
