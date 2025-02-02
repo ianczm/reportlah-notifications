@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@mantine/core";
 import Link from "next/link";
 import { QrCode } from "react-qrcode-pretty";
 
@@ -12,8 +13,12 @@ function generateFeedbackLink(publisherId: string, location: Location) {
 
 function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   const location = useLocation();
-  const feedbackLink = generateFeedbackLink(publisherId, location);
 
+  if (!location) {
+    return <Skeleton className="aspect-square w-full" />;
+  }
+
+  const feedbackLink = generateFeedbackLink(publisherId, location);
   return (
     <Link
       href={feedbackLink}
