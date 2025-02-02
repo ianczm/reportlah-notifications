@@ -3,9 +3,10 @@ import _ from "lodash";
 import Link from "next/link";
 
 import payload from "@/backend/payload/payload";
+import LandingGrid from "@/ui/components/layout/LandingGrid";
 
-import LandingContent from "./LandingContent";
 import RegistrationForm from "./RegistrationForm";
+import Landing from "../../../ui/components/layout/Landing";
 
 async function getChannels() {
   const channels = await payload.find({
@@ -24,26 +25,28 @@ async function RegistrationPage() {
 
   return (
     <main className="h-screen w-screen">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
-        <LandingContent>
-          <LandingContent.Text>
-            <LandingContent.Text.Title>
+      <LandingGrid>
+        {/* Left */}
+        <Landing>
+          <Landing.TextContainer>
+            <Landing.TextContainer.Title>
               Stay on top of your kopitiam game
-            </LandingContent.Text.Title>
-            <LandingContent.Text.Description>
+            </Landing.TextContainer.Title>
+            <Landing.TextContainer.Description>
               Get real-time feedback on your operations. Take action faster.
               Roll out best practices where they matter.
-            </LandingContent.Text.Description>
-          </LandingContent.Text>
+            </Landing.TextContainer.Description>
+          </Landing.TextContainer>
           <Group gap="xs">
             <Button>Register as a Tenant</Button>
             <Button variant="outline" component={Link} href="/admin">
               Dashboard
             </Button>
           </Group>
-        </LandingContent>
+        </Landing>
+        {/* Right */}
         <RegistrationForm channelGroups={channelGroups} />
-      </section>
+      </LandingGrid>
     </main>
   );
 }

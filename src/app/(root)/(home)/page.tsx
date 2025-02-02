@@ -1,34 +1,27 @@
 import { Button, Group, Stack } from "@mantine/core";
 import Link from "next/link";
 
-import payload from "@/backend/payload/payload";
-import { Publisher, Service, Tenant } from "@/backend/payload/payload-types";
+import { Service, Tenant } from "@/backend/payload/payload-types";
+import LandingGrid from "@/ui/components/layout/LandingGrid";
 
-import LandingContent from "./register/LandingContent";
-
-async function getAllPublishers(): Promise<Publisher[]> {
-  const publishers = await payload.find({
-    collection: "publishers",
-    limit: 5,
-    depth: 1,
-  });
-  return publishers.docs;
-}
+import { getAllPublishers } from "./fetchData";
+import Landing from "../../../ui/components/layout/Landing";
 
 export default async function Home() {
   const publishers = await getAllPublishers();
   return (
     <main className="h-screen w-screen">
-      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
-        <LandingContent>
-          <LandingContent.Text>
-            <LandingContent.Text.Title>
+      <LandingGrid>
+        {/* Left */}
+        <Landing>
+          <Landing.TextContainer>
+            <Landing.TextContainer.Title>
               Welcome to ReportLah!
-            </LandingContent.Text.Title>
-            <LandingContent.Text.Description>
+            </Landing.TextContainer.Title>
+            <Landing.TextContainer.Description>
               Here is our list of coffeeshops you can give feedback to.
-            </LandingContent.Text.Description>
-          </LandingContent.Text>
+            </Landing.TextContainer.Description>
+          </Landing.TextContainer>
           <Group gap="xs">
             <Button component={Link} href="/register">
               Register as a Tenant
@@ -37,7 +30,8 @@ export default async function Home() {
               Dashboard
             </Button>
           </Group>
-        </LandingContent>
+        </Landing>
+        {/* Right */}
         <div className="flex flex-col justify-center max-xl:p-8">
           <Stack>
             {publishers.map((publisher) => {
@@ -55,7 +49,7 @@ export default async function Home() {
             })}
           </Stack>
         </div>
-      </section>
+      </LandingGrid>
     </main>
   );
 }
