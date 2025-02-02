@@ -1,24 +1,22 @@
-"use client";
-
 import { Button, Group, Stack } from "@mantine/core";
 import Link from "next/link";
-import { useAction } from "next-safe-action/hooks";
-import { useEffect, useState } from "react";
 
-import { getAllPublishersAction } from "@/backend/actions/payload";
+import payload from "@/backend/payload/payload";
 import { Publisher, Service, Tenant } from "@/backend/payload/payload-types";
 
 import LandingContent from "./register/LandingContent";
 
-export default function Home() {
-  const [publishers, setPublishers] = useState<Publisher[]>([]);
-
-  const { execute } = useAction(getAllPublishersAction, {
-    onSuccess: ({ data }) => setPublishers(data!),
+async function getAllPublishers(): Promise<Publisher[]> {
+  const publishers = await payload.find({
+    collection: "publishers",
+    limit: 5,
+    depth: 1,
   });
+  return publishers.docs;
+}
 
-  useEffect(execute, [execute]);
-
+export default async function Home() {
+  const publishers = await getAllPublishers();
   return (
     <main className="h-screen w-screen">
       <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
