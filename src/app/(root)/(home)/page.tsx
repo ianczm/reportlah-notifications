@@ -1,14 +1,15 @@
 import { Button, Group, Stack } from "@mantine/core";
 import Link from "next/link";
 
-import { Service, Tenant } from "@/backend/payload/payload-types";
+import { Tenant } from "@/backend/payload/payload-types";
 import LandingGrid from "@/ui/components/layout/LandingGrid";
+import { H2 } from "@/ui/components/typography/Header";
 
-import { getAllPublishers } from "./fetchData";
+import { getAllPublisherGroups } from "./fetchData";
 import Landing from "../../../ui/components/layout/Landing";
 
 export default async function Home() {
-  const publishers = await getAllPublishers();
+  const publisherGroups = await getAllPublisherGroups();
   return (
     <main className="h-screen w-screen">
       <LandingGrid>
@@ -32,22 +33,27 @@ export default async function Home() {
           </Group>
         </Landing>
         {/* Right */}
-        <div className="flex flex-col justify-center max-xl:p-8">
-          <Stack>
-            {publishers.map((publisher) => {
-              const service = publisher.service as Service;
-              const tenant = publisher.tenant as Tenant;
-              return (
-                <Button
-                  component={Link}
-                  key={publisher.id}
-                  href={`/feedback/${publisher.id}`}
-                >
-                  {service.name} | {tenant.name}
-                </Button>
-              );
-            })}
-          </Stack>
+        <div className="flex flex-col justify-center gap-16 max-xl:p-8">
+          {publisherGroups.map(({ serviceName, publishers }) => (
+            <div key={serviceName} className="flex flex-col gap-8">
+              <H2>{serviceName}</H2>
+              <Stack key={serviceName}>
+                {publishers.map((publisher) => {
+                  const tenant = publisher.tenant as Tenant;
+                  return (
+                    <Button
+                      component={Link}
+                      key={publisher.id}
+                      href={`/feedback/${publisher.id}`}
+                      justify="start"
+                    >
+                      {tenant.name}
+                    </Button>
+                  );
+                })}
+              </Stack>
+            </div>
+          ))}
         </div>
       </LandingGrid>
     </main>

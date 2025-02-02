@@ -7,3 +7,9 @@ export function H1({ children }: { children: ReactNode }) {
     </h1>
   );
 }
+
+export function H2({ children }: { children: ReactNode }) {
+  return (
+    <h2 className="font-display text-2xl uppercase md:text-3xl">{children}</h2>
+  );
+}
