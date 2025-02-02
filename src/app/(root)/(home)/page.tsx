@@ -1,18 +1,17 @@
 "use client";
 
-import { Anchor, Button, Group, Space, Stack } from "@mantine/core";
+import { Button, Group, Stack } from "@mantine/core";
 import Link from "next/link";
 import { useAction } from "next-safe-action/hooks";
-import { MouseEventHandler, useEffect, useState } from "react";
-import { QrCode } from "react-qrcode-pretty";
-import { v4 as uuid } from "uuid";
+import { useEffect, useState } from "react";
 
 import { getAllPublishersAction } from "@/backend/actions/payload";
 import { Publisher, Service, Tenant } from "@/backend/payload/payload-types";
 
+import LandingContent from "./register/LandingContent";
+
 export default function Home() {
   const [publishers, setPublishers] = useState<Publisher[]>([]);
-  const [feedbackLink, setFeedbackLink] = useState<string | null>(null);
 
   const { execute } = useAction(getAllPublishersAction, {
     onSuccess: ({ data }) => setPublishers(data!),
@@ -20,85 +19,43 @@ export default function Home() {
 
   useEffect(execute, [execute]);
 
-  const buildFeedbackLink = () => {
-    const url = new URL(`/feedback/${uuid()}`, `${window.location.origin}`);
-    return url.href;
-  };
-
-  const setFeedbackLinkForPublisher = (publisher: Publisher) => {
-    const url = new URL(
-      `/feedback/${publisher.id}`,
-      `${window.location.origin}`
-    );
-    setFeedbackLink(url.href);
-  };
-
-  const generateQrCode =
-    (active: boolean): MouseEventHandler<HTMLButtonElement> =>
-    (e) => {
-      if (!active) {
-        e.preventDefault();
-      } else {
-        setFeedbackLink(buildFeedbackLink());
-      }
-    };
-
   return (
-    <main>
-      <section className="mx-auto grid h-screen max-w-screen-xl grid-cols-2 items-center gap-8">
-        {/* Header */}
-        <div>
-          <h2 className="text-6xl font-extrabold">Generate QR Code</h2>
-          <Group mt="md" gap="xs">
-            <Button
-              variant="filled"
-              onClick={generateQrCode(false)}
-              data-disabled
-            >
-              Generate QR
+    <main className="h-screen w-screen">
+      <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
+        <LandingContent>
+          <LandingContent.Text>
+            <LandingContent.Text.Title>
+              Welcome to ReportLah!
+            </LandingContent.Text.Title>
+            <LandingContent.Text.Description>
+              Here is our list of coffeeshops you can give feedback to.
+            </LandingContent.Text.Description>
+          </LandingContent.Text>
+          <Group gap="xs">
+            <Button component={Link} href="/register">
+              Register as a Tenant
             </Button>
-            <Button component={Link} variant="light" href="/admin">
+            <Button variant="outline" component={Link} href="/admin">
               Dashboard
             </Button>
           </Group>
-          <Space h="xl" />
+        </LandingContent>
+        <div className="flex flex-col justify-center max-xl:p-8">
           <Stack>
             {publishers.map((publisher) => {
               const service = publisher.service as Service;
               const tenant = publisher.tenant as Tenant;
               return (
                 <Button
+                  component={Link}
                   key={publisher.id}
-                  onClick={() => setFeedbackLinkForPublisher(publisher)}
+                  href={`/feedback/${publisher.id}`}
                 >
                   {service.name} | {tenant.name}
                 </Button>
               );
             })}
           </Stack>
-        </div>
-        {/* QR Outlet */}
-        <div>
-          <h2 className="text-4xl">Your QR</h2>
-          {feedbackLink && (
-            <div>
-              <Anchor
-                component={Link}
-                className="my-4 inline-block"
-                href={feedbackLink}
-                underline="hover"
-                target="_blank"
-              >
-                {feedbackLink}
-              </Anchor>
-              <QrCode
-                value={feedbackLink}
-                level="Q"
-                variant="gravity"
-                divider
-              />
-            </div>
-          )}
         </div>
       </section>
     </main>
