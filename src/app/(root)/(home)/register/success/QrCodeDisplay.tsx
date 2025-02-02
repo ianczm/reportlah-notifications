@@ -15,7 +15,9 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   const location = useLocation();
 
   if (!location) {
-    return <Skeleton className="aspect-square w-full" />;
+    return (
+      <Skeleton className="aspect-square w-full rounded-3xl md:rounded-6xl" />
+    );
   }
 
   const feedbackLink = generateFeedbackLink(publisherId, location);
