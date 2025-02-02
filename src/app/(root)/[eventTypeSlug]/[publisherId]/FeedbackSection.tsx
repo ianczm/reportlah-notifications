@@ -1,11 +1,13 @@
 "use client";
 
-import { Stack } from "@mantine/core";
+import { Button, Group, Stack } from "@mantine/core";
+import Link from "next/link";
 import { useState } from "react";
 
 import { EventTag, Publisher, Tenant } from "@/backend/payload/payload-types";
 
 import FeedbackButton from "./FeedbackButton";
+import LandingContent from "../../(home)/register/LandingContent";
 
 export type FeedbackSectionProps = {
   publisher: Publisher;
@@ -21,18 +23,25 @@ function FeedbackSection({
   const [pendingEvent, setPendingEvent] = useState<EventTag | null>(null);
 
   return (
-    <section className="mx-auto grid h-screen max-w-screen-xl grid-cols-2 items-center gap-8">
-      <div>
-        <h2 className="mb-4 text-6xl font-extrabold">
-          You&apos;re giving feedback to
-        </h2>
-        <p>
-          {tenant.name}: {publisher.id}
-        </p>
-      </div>
-      <div>
-        <h2 className="mb-4 text-4xl">Feedback options</h2>
-        <Stack gap="xs">
+    <section className="mx-auto grid size-full max-w-screen-2xl grid-cols-[auto] grid-rows-[auto_auto] gap-5 xl:grid-cols-[1fr_1fr]  xl:grid-rows-[auto] xl:px-5">
+      <LandingContent>
+        <LandingContent.Text>
+          <LandingContent.Text.Title>Give feedback</LandingContent.Text.Title>
+          <LandingContent.Text.Description>
+            You&apos;re giving feedback to {publisher.name}
+          </LandingContent.Text.Description>
+        </LandingContent.Text>
+        <Group gap="xs">
+          <Button component={Link} href="/">
+            Back to Home
+          </Button>
+          <Button variant="outline" component={Link} href="/admin">
+            Dashboard
+          </Button>
+        </Group>
+      </LandingContent>
+      <div className="flex flex-col justify-center max-xl:p-8">
+        <Stack>
           {eventTags &&
             eventTags.map((eventTag) => (
               <FeedbackButton

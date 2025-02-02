@@ -54,7 +54,7 @@ async function FeedbackPage({
   const data = await fetchData(publisherId, eventTypeSlug);
 
   return (
-    <main>
+    <main className="h-screen w-screen">
       <FeedbackSection {...data} />
     </main>
   );
