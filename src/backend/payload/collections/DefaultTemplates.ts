@@ -1,3 +1,5 @@
+import { getId } from "@/backend/utils/payload";
+
 import type { CollectionConfig } from "payload";
 
 export const DefaultTemplates: CollectionConfig = {
@@ -24,7 +26,7 @@ export const DefaultTemplates: CollectionConfig = {
           async ({ data, req }) => {
             const channel = await req.payload.findByID({
               collection: "channels",
-              id: data!.channel,
+              id: getId(data!.channel),
               depth: 0,
             });
             return channel.name;

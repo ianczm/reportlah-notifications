@@ -1,3 +1,5 @@
+import { getId } from "@/backend/utils/payload";
+
 import type { CollectionConfig } from "payload";
 
 export const Publishers: CollectionConfig = {
@@ -24,12 +26,12 @@ export const Publishers: CollectionConfig = {
           async ({ data, req }) => {
             const tenant = await req.payload.findByID({
               collection: "tenants",
-              id: data!.tenant,
+              id: getId(data!.tenant),
             });
 
             const service = await req.payload.findByID({
               collection: "services",
-              id: data!.service,
+              id: getId(data!.service),
             });
 
             return `${service.name} | ${tenant.name}`;
