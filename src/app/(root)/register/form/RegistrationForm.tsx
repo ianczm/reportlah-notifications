@@ -59,7 +59,6 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
   });
 
   function handleNextPage() {
-    console.log("handleNextPage");
     form.clearErrors();
 
     const errors = fieldNamesByPage[currentPage]
@@ -71,9 +70,12 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
       .filter(({ hasError }) => hasError)
       .toSorted((a, b) => a.index - b.index);
 
-    if (errors.some(({ hasError }) => hasError)) {
-      console.log("ahsError");
-      form.getInputNode(errors[0].fieldName)!.focus();
+    if (errors.length > 0) {
+      const firstErrorFieldname = errors[0].fieldName;
+      if (firstErrorFieldname !== "location") {
+        const inputNode = form.getInputNode(firstErrorFieldname);
+        inputNode!.focus();
+      }
     } else {
       if (currentPage !== maxPage) setCurrentPage((prev) => prev + 1);
     }
