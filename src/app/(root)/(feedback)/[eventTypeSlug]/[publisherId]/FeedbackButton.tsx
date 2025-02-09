@@ -28,14 +28,7 @@ function FeedbackButton({
   disabled,
 }: FeedbackButtonProps) {
   const { executeAsync, isPending } = useAction(raiseEventAction, {
-    onExecute: () => {
-      notifications.show({
-        title: "Thank you for your feedback!",
-        message: "Please give us a moment while we send out the alert...",
-        color: "blue",
-      });
-      notifyParentOfExecution();
-    },
+    onExecute: notifyParentOfExecution,
     onSuccess: () => {
       notifications.show({
         title: "Feedback sent!",

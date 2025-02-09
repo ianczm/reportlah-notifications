@@ -4,6 +4,7 @@ import { compile } from "handlebars";
 import { courier } from "@/lib/courier";
 import { log } from "@/lib/winston";
 
+import { ActionError } from "../actions/errors";
 import payload from "../payload/payload";
 import {
   Channel,
@@ -95,7 +96,7 @@ async function getTemplateDataOrDefault(
 
   const errorMessage = `No template nor default template was found for publisher ${publisher.id} and channel ${channel.id} for event ${eventId}.`;
   log.error(errorMessage);
-  throw new Error(errorMessage);
+  throw new ActionError(errorMessage);
 }
 
 export async function sendCourierRequest({
