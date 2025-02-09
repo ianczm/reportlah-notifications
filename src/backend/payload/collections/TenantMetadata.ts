@@ -1,3 +1,5 @@
+import { getId } from "@/backend/utils/payload";
+
 import type { CollectionConfig } from "payload";
 
 export const TenantMetadata: CollectionConfig = {
@@ -24,7 +26,7 @@ export const TenantMetadata: CollectionConfig = {
           async ({ data, req }) => {
             const tenant = await req.payload.findByID({
               collection: "tenants",
-              id: data!.tenant,
+              id: getId(data!.tenant),
             });
             return tenant.name;
           },

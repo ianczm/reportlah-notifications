@@ -5,6 +5,7 @@ import { z } from "zod";
 import { actionClient } from "@/lib/safe-action";
 import { log } from "@/lib/winston";
 
+import { ActionError } from "./errors";
 import { sendCourierRequest } from "../notifications/courier";
 import payload from "../payload/payload";
 import { EventType, Service } from "../payload/payload-types";
@@ -44,7 +45,7 @@ async function raiseEvent(eventRequest: EventRequest) {
   ]);
 
   if (!(publisher && eventTag)) {
-    throw new Error(
+    throw new ActionError(
       `Could not find a valid configuration for EventTag: ${eventTagId} and Publisher: ${publisherId}`
     );
   }

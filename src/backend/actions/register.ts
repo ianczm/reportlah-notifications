@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
@@ -48,6 +49,7 @@ async function register(request: RegistrationFormSchema) {
   });
 
   /* Currently only registers a publisher for Reportlah Food */
+  revalidatePath("/");
   redirect(`/register/success?publisherId=${publisherIds[0]}`);
 }
 
