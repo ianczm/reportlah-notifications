@@ -8,6 +8,7 @@ export async function getAllPublisherGroups() {
     collection: "publishers",
     limit: 5,
     depth: 1,
+    sort: "-createdAt",
   });
   return _(publishers.docs)
     .groupBy((publisher) => {
