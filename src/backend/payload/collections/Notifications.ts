@@ -28,5 +28,9 @@ export const Notifications: CollectionConfig = {
       name: "body",
       type: "json",
     },
+    {
+      name: "response",
+      type: "json",
+    },
   ],
 };

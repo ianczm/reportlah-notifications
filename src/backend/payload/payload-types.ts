@@ -314,6 +314,15 @@ export interface Notification {
     | number
     | boolean
     | null;
+  response?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -578,6 +587,7 @@ export interface NotificationsSelect<T extends boolean = true> {
   subscription?: T;
   'subscriber-channel'?: T;
   body?: T;
+  response?: T;
   updatedAt?: T;
   createdAt?: T;
 }

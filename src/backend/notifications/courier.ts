@@ -197,6 +197,13 @@ export async function sendCourierRequest({
           count: matchingEvents.docs.length,
         });
 
+        const courierResponse = await courier.send(request);
+
+        log.info(
+          `Sent notification for ${eventId} to ${subscriberChannel.id}.`,
+          { request }
+        );
+
         const notification = await payload.create({
           collection: "notifications",
           data: {
@@ -204,16 +211,11 @@ export async function sendCourierRequest({
             event: event.id,
             subscription: subscription.id,
             body: request as unknown as Record<string, never>,
+            response: { requestId: courierResponse.requestId },
           },
         });
 
         log.info(`Notification created: ${notification.id} for ${eventId}`);
-
-        await courier.send(request);
-        log.info(
-          `Sent notification for ${eventId} to ${subscriberChannel.id}.`,
-          { request }
-        );
       }
     );
 
