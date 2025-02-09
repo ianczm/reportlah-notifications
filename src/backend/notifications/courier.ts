@@ -42,10 +42,10 @@ const REQUEST_FACTORY: Record<
     default: { requestKey: "user_id", builder: buildCourierRequest },
   },
   discord: {
-    user: { requestKey: "user_id", builder: buildCourierDiscordUserRequest },
+    user: { requestKey: "user_id", builder: buildCourierDiscordRequest },
     channel: {
       requestKey: "channel_id",
-      builder: buildCourierDiscordUserRequest,
+      builder: buildCourierDiscordRequest,
     },
   },
 };
@@ -234,7 +234,7 @@ export type BuildNotificationMessageParams = {
   count: number;
 };
 
-export async function buildCourierDiscordUserRequest({
+export async function buildCourierDiscordRequest({
   requestKey,
   subscriberChannel,
   template,

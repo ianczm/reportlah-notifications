@@ -6,7 +6,7 @@ import { log } from "./winston";
 
 export const actionClient = createSafeActionClient({
   handleServerError: (error) => {
-    log.error(`Server action failed: ${error.message}`, { error });
+    log.error(error);
     if (error instanceof ActionError) {
       return error.message;
     }
