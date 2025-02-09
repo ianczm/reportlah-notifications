@@ -3,6 +3,9 @@ import { z } from "zod";
 export const REGISTRATION_FORM_SCHEMA = z
   .object({
     tenantName: z.string().nonempty(),
+    name: z
+      .string({ errorMap: () => ({ message: "Please provide a name" }) })
+      .nonempty(),
     email: z
       .string({ errorMap: () => ({ message: "Please enter a valid email" }) })
       .email(),

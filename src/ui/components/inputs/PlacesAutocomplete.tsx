@@ -18,7 +18,7 @@ const INVALID_LOCATION = {
 interface PlacesAutocompleteProps {
   form: UseFormReturnType<RegistrationFormSchema>;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
 }
 
@@ -78,7 +78,7 @@ function PlacesAutocompleteInput({
 } & PlacesAutocompleteSpreadProps & {
     id: string;
     name: string;
-    label: string;
+    label?: string;
     placeholder: string;
   }) {
   const {

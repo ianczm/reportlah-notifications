@@ -1,7 +1,17 @@
 import { ReactNode } from "react";
 
-export function P1({ children }: { children: ReactNode }) {
+import { cn } from "@/ui/utils/tailwind";
+
+export function P1({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <p className="text-lg font-bold text-light-600 md:text-xl">{children}</p>
+    <p className={cn("text-lg font-bold text-light-600 md:text-xl", className)}>
+      {children}
+    </p>
   );
 }
