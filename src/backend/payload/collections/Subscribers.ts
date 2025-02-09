@@ -1,3 +1,5 @@
+import { getId } from "@/backend/utils/payload";
+
 import type { CollectionConfig } from "payload";
 
 export const Subscribers: CollectionConfig = {
@@ -24,12 +26,12 @@ export const Subscribers: CollectionConfig = {
           async ({ data, req }) => {
             const tenant = await req.payload.findByID({
               collection: "tenants",
-              id: data!.tenant.id ?? data!.tenant,
+              id: getId(data!.tenant),
             });
 
             const user = await req.payload.findByID({
               collection: "users",
-              id: data!.user.id ?? data!.user,
+              id: getId(data!.user),
             });
 
             return `${user.email} | ${tenant.name}`;
