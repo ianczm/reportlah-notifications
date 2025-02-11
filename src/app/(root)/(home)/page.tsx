@@ -11,7 +11,7 @@ import Landing from "../../../ui/components/layout/Landing";
 export default async function Home() {
   const publisherGroups = await getAllPublisherGroups();
   return (
-    <main className="h-screen w-screen">
+    <main className="h-dvh w-screen">
       <LandingGrid>
         {/* Left */}
         <Landing>
@@ -24,7 +24,7 @@ export default async function Home() {
             </Landing.TextContainer.Description>
           </Landing.TextContainer>
           <Group gap="xs">
-            <Button component={Link} href="/register">
+            <Button component={Link} href="/register/form">
               Register as a Tenant
             </Button>
             <Button variant="outline" component={Link} href="/admin">

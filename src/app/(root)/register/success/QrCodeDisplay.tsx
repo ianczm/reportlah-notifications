@@ -24,7 +24,7 @@ function QrCodeDisplay({ publisherId }: { publisherId: string }) {
   return (
     <Link
       href={feedbackLink}
-      className="block rounded-3xl bg-[#25251C]/0 p-8 transition-colors hover:bg-[#25251C] md:rounded-6xl md:p-16"
+      className="block rounded-3xl border border-[#25251C]/50 bg-[#25251C]/30 p-8 transition-colors hover:border-light-600/10 hover:bg-[#25251C] md:rounded-6xl md:p-16"
     >
       <QrCode
         value={feedbackLink}

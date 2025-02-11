@@ -1,7 +1,7 @@
 import { getChannels } from "./fetchData";
 import RegistrationFormPage from "./RegistrationForm";
 
-import "./page.module.css";
+import "./page.module.scss";
 
 async function RegisterNewFormPage() {
   const channelGroups = await getChannels();
