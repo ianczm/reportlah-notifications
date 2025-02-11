@@ -24,7 +24,7 @@ export default async function Home() {
             </Landing.TextContainer.Description>
           </Landing.TextContainer>
           <Group gap="xs">
-            <Button component={Link} href="/register/form">
+            <Button component={Link} href="/register">
               Register as a Tenant
             </Button>
             <Button variant="outline" component={Link} href="/admin">
