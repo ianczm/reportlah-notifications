@@ -27,7 +27,7 @@ async function register(request: RegistrationFormSchema) {
   const tenant = await createTenant(request.tenantName, request.location);
   const publishers = await createPublishers(tenant.id);
 
-  const user = await createUser(request.email, request.password);
+  const user = await createUser(request.email, request.password, request.name);
   const subscriber = await createSubscriber(user.id, tenant.id);
 
   const subscriberChannel = await createSubscriberChannel(
@@ -123,12 +123,17 @@ async function createPublishers(tenantId: string): Promise<Publisher[]> {
   return Promise.all(publishers);
 }
 
-async function createUser(email: string, password: string): Promise<User> {
+async function createUser(
+  email: string,
+  password: string,
+  name: string
+): Promise<User> {
   const user = await payload.create({
     collection: "users",
     data: {
       email,
       password,
+      name,
     },
   });
 

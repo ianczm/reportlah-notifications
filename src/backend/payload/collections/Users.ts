@@ -7,5 +7,10 @@ export const Users: CollectionConfig = {
     group: "Core",
   },
   auth: true,
-  fields: [],
+  fields: [
+    {
+      name: "name",
+      type: "text",
+    },
+  ],
 };
