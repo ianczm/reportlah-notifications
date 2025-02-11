@@ -15,9 +15,9 @@ function Step1({ form, pageHandlers, hidden }: StepPageProps) {
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
           Step 1 / 6
         </P1>
-        <H2>Let&apos;s begin!</H2>
+        <H2>Create a business account</H2>
         <P1 className="text-dark-400">
-          First, let&apos;s get your email address
+          This is the account you will use to manage your shops and reports
         </P1>
       </RegistrationFormStep.HeaderSection>
       <RegistrationFormStep.InputSection>
@@ -27,7 +27,7 @@ function Step1({ form, pageHandlers, hidden }: StepPageProps) {
           key={form.key("email")}
           {...form.getInputProps("email")}
           label="Email address"
-          placeholder="your@email.com"
+          placeholder="operations@business.com"
           type="email"
           required
         />

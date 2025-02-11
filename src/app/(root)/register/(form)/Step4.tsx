@@ -16,7 +16,9 @@ function Step4({ form, pageHandlers, hidden }: StepPageProps) {
           Step 4 / 6
         </P1>
         <H2>Set up your first shop</H2>
-        <P1 className="text-dark-400">What should we call your shop?</P1>
+        <P1 className="text-dark-400">
+          This would be one of your outlets to be monitored
+        </P1>
       </RegistrationFormStep.HeaderSection>
       <RegistrationFormStep.InputSection>
         <TextInput
@@ -27,6 +29,7 @@ function Step4({ form, pageHandlers, hidden }: StepPageProps) {
           label="Shop name"
           placeholder="Enter your shop name"
           type="text"
+          description={`e.g. ${form.values.name}'s Kitchen @ Clarke Quay`}
           required
         />
         <Button onClick={pageHandlers.next} fullWidth>

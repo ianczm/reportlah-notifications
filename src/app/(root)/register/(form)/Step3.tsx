@@ -15,9 +15,9 @@ function Step3({ form, pageHandlers, hidden }: StepPageProps) {
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
           Step 3 / 6
         </P1>
-        <H2>Create your account</H2>
+        <H2>Account details</H2>
         <P1 className="text-dark-400">
-          You&apos;ll use this to manage your shops
+          You&apos;ll use these credentials to log into your admin dashboard
         </P1>
       </RegistrationFormStep.HeaderSection>
       <RegistrationFormStep.InputSection>
