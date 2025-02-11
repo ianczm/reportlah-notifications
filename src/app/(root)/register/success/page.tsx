@@ -1,4 +1,4 @@
-import { Button, Group } from "@mantine/core";
+import { Button, Group, Tooltip } from "@mantine/core";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -35,7 +35,7 @@ async function SuccessPage({
   const tenant = publisher.tenant as Tenant;
 
   return (
-    <main className="h-dvh w-screen">
+    <main className="min-h-dvh w-screen">
       <div className="flex h-full flex-col justify-center">
         <section
           className={cn(
@@ -60,11 +60,13 @@ async function SuccessPage({
           </div>
           <Group gap="xs" className="self-start xl:mt-4">
             <Button component={Link} href={`/feedback/${publisherId}`}>
-              Download QR
+              Try it out
             </Button>
-            <Button variant="outline" component={Link} href="/admin">
-              Give it a try
-            </Button>
+            <Tooltip label="Coming soon">
+              <Button variant="outline" disabled>
+                Download QR
+              </Button>
+            </Tooltip>
           </Group>
         </section>
       </div>

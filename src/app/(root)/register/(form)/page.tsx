@@ -1,16 +1,16 @@
 import { getChannels } from "./fetchData";
-import RegistrationFormPage from "./RegistrationForm";
+import RegistrationForm from "./RegistrationForm";
 
 import "./page.module.scss";
 
-async function RegisterNewFormPage() {
+async function RegisterPage() {
   const channelGroups = await getChannels();
 
   return (
-    <main className="h-dvh w-screen text-dark-100">
-      <RegistrationFormPage data={{ channelGroups }} />
+    <main className="min-h-dvh w-screen text-dark-100">
+      <RegistrationForm data={{ channelGroups }} />
     </main>
   );
 }
 
-export default RegisterNewFormPage;
+export default RegisterPage;

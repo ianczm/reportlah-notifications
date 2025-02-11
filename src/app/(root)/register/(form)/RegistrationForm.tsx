@@ -33,7 +33,7 @@ const fieldNamesByPage: Record<number, string[]> = {
 
 const totalPages = 5;
 
-function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
+function RegistrationForm({ data }: Pick<StepPageProps, "data">) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { executeAsync, isPending } = useAction(registerAction);
@@ -93,8 +93,8 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
   };
 
   return (
-    <main className="h-dvh w-screen text-dark-100">
-      <form className="h-full" onSubmit={form.onSubmit(handleFormSubmit)}>
+    <div className="h-dvh w-screen text-dark-100">
+      <form className="h-dvh" onSubmit={form.onSubmit(handleFormSubmit)}>
         {Object.entries(pages).map(([page, PageComponent]) => (
           <PageComponent
             step={parseInt(page)}
@@ -108,8 +108,8 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
           />
         ))}
       </form>
-    </main>
+    </div>
   );
 }
 
-export default RegistrationFormPage;
+export default RegistrationForm;
