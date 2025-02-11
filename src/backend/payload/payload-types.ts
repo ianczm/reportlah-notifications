@@ -167,6 +167,7 @@ export interface Channel {
   name?: string | null;
   provider: string;
   recipientType: string;
+  recipientTypeLabel: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -633,6 +634,7 @@ export interface ChannelsSelect<T extends boolean = true> {
   name?: T;
   provider?: T;
   recipientType?: T;
+  recipientTypeLabel?: T;
   updatedAt?: T;
   createdAt?: T;
 }

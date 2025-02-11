@@ -26,6 +26,10 @@ function Step6({
   isPending,
   hidden,
 }: StepPageProps) {
+  const selectedChannel = channelGroups
+    .flatMap((groups) => groups.channels)
+    .find((channel) => channel.id === form.values.channelId);
+
   return (
     <RegistrationFormStep hidden={hidden}>
       <RegistrationFormStep.HeaderSection>
@@ -33,7 +37,9 @@ function Step6({
           Step {step} / {totalSteps}
         </P1>
         <H2>Almost there...</H2>
-        <P1 className="text-dark-400">How would you like to be notified?</P1>
+        <P1 className="text-dark-400">
+          How would you like to be notified of reports?
+        </P1>
       </RegistrationFormStep.HeaderSection>
       <RegistrationFormStep.InputSection>
         <Select
@@ -41,9 +47,10 @@ function Step6({
           name="channelId"
           key={form.key("channelId")}
           {...form.getInputProps("channelId")}
-          label="Notifications Channel"
+          label="Notifications channel"
           placeholder="Select your channel"
           data={channelGroupToOptions(channelGroups)}
+          description="The delivery method for notifications, e.g. SMS"
           required
         />
         <TextInput
@@ -51,9 +58,12 @@ function Step6({
           name="recipient"
           key={form.key("recipient")}
           {...form.getInputProps("recipient")}
-          label="Recipient"
-          placeholder="Enter your identifier"
+          label={
+            selectedChannel ? selectedChannel.recipientTypeLabel : "Recipient"
+          }
+          placeholder={`Enter your ${selectedChannel ? selectedChannel.recipientTypeLabel : "identifier"}`}
           type="text"
+          description="The recipient for all notifications, e.g. phone number"
           required
         />
         <Checkbox
@@ -61,7 +71,7 @@ function Step6({
           name="terms"
           key={form.key("terms")}
           {...form.getInputProps("terms", { type: "checkbox" })}
-          label="I agree to the terms and conditions"
+          label="I agree to the terms and conditions."
           required
         />
         <Button type="submit" fullWidth loading={isPending}>
