@@ -9,6 +9,8 @@ export type PageHandlers = {
 };
 
 export type StepPageProps = {
+  step: number;
+  totalSteps: number;
   form: UseFormReturnType<RegistrationFormSchema>;
   data: StepPageData;
   pageHandlers: PageHandlers;

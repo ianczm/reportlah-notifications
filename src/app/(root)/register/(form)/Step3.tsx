@@ -8,12 +8,18 @@ import { P1 } from "@/ui/components/typography/Paragraph";
 import { RegistrationFormStep } from "./RegistrationFormStep";
 import { StepPageProps } from "./types";
 
-function Step3({ form, pageHandlers, hidden }: StepPageProps) {
+function Step3({
+  step,
+  totalSteps,
+  form,
+  pageHandlers,
+  hidden,
+}: StepPageProps) {
   return (
     <RegistrationFormStep hidden={hidden}>
       <RegistrationFormStep.HeaderSection>
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
-          Step 3 / 6
+          Step {step} / {totalSteps}
         </P1>
         <H2>Account details</H2>
         <P1 className="text-dark-400">

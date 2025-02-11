@@ -19,6 +19,8 @@ function channelGroupToOptions(channelGroups: ChannelGroup[]): ChannelOption[] {
 }
 
 function Step6({
+  step,
+  totalSteps,
   form,
   data: { channelGroups },
   isPending,
@@ -28,7 +30,7 @@ function Step6({
     <RegistrationFormStep hidden={hidden}>
       <RegistrationFormStep.HeaderSection>
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
-          Step 6 / 6
+          Step {step} / {totalSteps}
         </P1>
         <H2>Almost there...</H2>
         <P1 className="text-dark-400">How would you like to be notified?</P1>

@@ -31,7 +31,7 @@ const fieldNamesByPage: Record<number, string[]> = {
   5: ["channelId", "recipient", "terms"],
 };
 
-const maxPage = 5;
+const totalPages = 5;
 
 function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,7 +77,7 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
         inputNode!.focus();
       }
     } else {
-      if (currentPage !== maxPage) setCurrentPage((prev) => prev + 1);
+      if (currentPage !== totalPages) setCurrentPage((prev) => prev + 1);
     }
   }
 
@@ -97,6 +97,8 @@ function RegistrationFormPage({ data }: Pick<StepPageProps, "data">) {
       <form className="h-full" onSubmit={form.onSubmit(handleFormSubmit)}>
         {Object.entries(pages).map(([page, PageComponent]) => (
           <PageComponent
+            step={parseInt(page)}
+            totalSteps={totalPages}
             key={page}
             data={data}
             form={form}
