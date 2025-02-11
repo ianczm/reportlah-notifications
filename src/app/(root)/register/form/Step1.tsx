@@ -4,18 +4,14 @@ import { Button, TextInput } from "@mantine/core";
 
 import { H2 } from "@/ui/components/typography/Header";
 import { P1 } from "@/ui/components/typography/Paragraph";
-import { cn } from "@/ui/utils/tailwind";
 
+import { RegistrationFormStep } from "./RegistrationFormStep";
 import { StepPageProps } from "./types";
 
 function Step1({ form, pageHandlers, hidden }: StepPageProps) {
   return (
-    <div
-      className={cn("flex h-full flex-col justify-between px-8 py-16", {
-        hidden: hidden,
-      })}
-    >
-      <div className="flex flex-col gap-8">
+    <RegistrationFormStep hidden={hidden}>
+      <RegistrationFormStep.HeaderSection>
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
           Step 1 / 6
         </P1>
@@ -23,8 +19,8 @@ function Step1({ form, pageHandlers, hidden }: StepPageProps) {
         <P1 className="text-dark-400">
           First, let&apos;s get your email address
         </P1>
-      </div>
-      <div className="flex flex-col gap-8">
+      </RegistrationFormStep.HeaderSection>
+      <RegistrationFormStep.InputSection>
         <TextInput
           id="email"
           name="email"
@@ -38,8 +34,8 @@ function Step1({ form, pageHandlers, hidden }: StepPageProps) {
         <Button onClick={pageHandlers.next} fullWidth>
           Next
         </Button>
-      </div>
-    </div>
+      </RegistrationFormStep.InputSection>
+    </RegistrationFormStep>
   );
 }
 

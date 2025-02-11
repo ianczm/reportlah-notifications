@@ -75,7 +75,7 @@ const theme = createTheme({
     }),
     InputLabel: InputLabel.extend({
       defaultProps: {
-        fz: "md",
+        fz: "sm",
         mb: "xs",
         fw: "bold",
       },

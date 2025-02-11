@@ -5,11 +5,10 @@ import { Map, Marker } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 
 import PlacesAutocomplete from "@/ui/components/inputs/PlacesAutocomplete";
-import { H2 } from "@/ui/components/typography/Header";
-import { P1 } from "@/ui/components/typography/Paragraph";
 import { GoogleMapsApiProvider } from "@/ui/providers/GoogleMapsApi";
 import { cn } from "@/ui/utils/tailwind";
 
+import { RegistrationFormStep } from "./RegistrationFormStep";
 import { StepPageProps } from "./types";
 
 const singaporeLocation = {
@@ -29,16 +28,21 @@ const controlOptions = {
 
 function Step5({ form, pageHandlers, hidden }: StepPageProps) {
   const [shopLocation, setShopLocation] = useState(singaporeLocation);
-  const isShopLocationChanged = shopLocation !== singaporeLocation;
+  const [isShopLocationChanged, setShopLocationChanged] = useState(false);
+
+  function handleCoordinatesSelect(coordinates: { lat: number; lng: number }) {
+    setShopLocationChanged(true);
+    setShopLocation(coordinates);
+  }
 
   return (
     <GoogleMapsApiProvider>
       <div
-        className={cn("relative h-screen", {
+        className={cn("relative h-full", {
           hidden: hidden,
         })}
       >
-        <div className="absolute h-screen w-screen">
+        <div className="absolute h-full w-screen">
           <Map
             zoom={isShopLocationChanged ? 16 : 12}
             center={shopLocation}
@@ -48,26 +52,24 @@ function Step5({ form, pageHandlers, hidden }: StepPageProps) {
             {isShopLocationChanged && <Marker position={shopLocation} />}
           </Map>
         </div>
-        <div className="flex h-full flex-col justify-between">
-          <div className="relative z-10 flex flex-col gap-8 border-b border-light-800/40 bg-light-700/40 p-8 pt-16 drop-shadow-md backdrop-blur-md">
-            <P1 className="text-sm uppercase tracking-wider text-dark-400">
-              Step 5 / 6
-            </P1>
-            <H2>Set up your first shop</H2>
-            <P1 className="text-dark-400">Where is your shop located?</P1>
-          </div>
-          <div className="relative z-10 flex flex-col gap-8 border-t border-light-800/40 bg-light-700/40 p-8 pb-16 drop-shadow-md backdrop-blur-md">
+        <RegistrationFormStep
+          className="flex h-full flex-col justify-between"
+          hidden={false}
+        >
+          <RegistrationFormStep.HeaderSection className="relative z-10 border-b border-light-800/40 bg-light-700/70 drop-shadow-md backdrop-blur-md">
             <PlacesAutocomplete
               form={form}
               name="location"
               placeholder="Enter your shop address"
-              onCoordinatesSelect={setShopLocation}
+              onCoordinatesSelect={handleCoordinatesSelect}
             />
+          </RegistrationFormStep.HeaderSection>
+          <RegistrationFormStep.InputSection className="relative z-10 border-t border-light-800/40 bg-light-700/70 drop-shadow-md backdrop-blur-md">
             <Button onClick={pageHandlers.next} fullWidth>
               Next
             </Button>
-          </div>
-        </div>
+          </RegistrationFormStep.InputSection>
+        </RegistrationFormStep>
       </div>
     </GoogleMapsApiProvider>
   );

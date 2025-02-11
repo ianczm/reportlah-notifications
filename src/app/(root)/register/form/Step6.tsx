@@ -4,8 +4,8 @@ import { Button, Checkbox, Select, TextInput } from "@mantine/core";
 
 import { H2 } from "@/ui/components/typography/Header";
 import { P1 } from "@/ui/components/typography/Paragraph";
-import { cn } from "@/ui/utils/tailwind";
 
+import { RegistrationFormStep } from "./RegistrationFormStep";
 import { ChannelGroup, ChannelOption, StepPageProps } from "./types";
 
 function channelGroupToOptions(channelGroups: ChannelGroup[]): ChannelOption[] {
@@ -25,19 +25,15 @@ function Step6({
   hidden,
 }: StepPageProps) {
   return (
-    <div
-      className={cn("flex h-full flex-col justify-between px-8 py-16", {
-        hidden: hidden,
-      })}
-    >
-      <div className="flex flex-col gap-8">
+    <RegistrationFormStep hidden={hidden}>
+      <RegistrationFormStep.HeaderSection>
         <P1 className="text-sm uppercase tracking-wider text-dark-400">
           Step 6 / 6
         </P1>
         <H2>Almost there...</H2>
         <P1 className="text-dark-400">How would you like to be notified?</P1>
-      </div>
-      <div className="flex flex-col gap-8">
+      </RegistrationFormStep.HeaderSection>
+      <RegistrationFormStep.InputSection>
         <Select
           id="channelId"
           name="channelId"
@@ -69,8 +65,8 @@ function Step6({
         <Button type="submit" fullWidth loading={isPending}>
           Finish
         </Button>
-      </div>
-    </div>
+      </RegistrationFormStep.InputSection>
+    </RegistrationFormStep>
   );
 }
 
