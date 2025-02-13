@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Tenant } from "@/backend/payload/payload-types";
 import LandingGrid from "@/ui/components/layout/LandingGrid";
-import { H2 } from "@/ui/components/typography/Header";
+import { H3 } from "@/ui/components/typography/Header";
 
 import { getAllPublisherGroups } from "./fetchData";
 import Landing from "../../../ui/components/layout/Landing";
@@ -11,7 +11,7 @@ import Landing from "../../../ui/components/layout/Landing";
 export default async function Home() {
   const publisherGroups = await getAllPublisherGroups();
   return (
-    <main className="h-screen w-screen">
+    <main className="min-h-dvh w-screen xl:h-dvh">
       <LandingGrid>
         {/* Left */}
         <Landing>
@@ -36,7 +36,7 @@ export default async function Home() {
         <div className="flex flex-col justify-center gap-16 max-xl:p-8">
           {publisherGroups.map(({ serviceName, publishers }) => (
             <div key={serviceName} className="flex flex-col gap-8">
-              <H2>{serviceName}</H2>
+              <H3>{serviceName}</H3>
               <Stack key={serviceName}>
                 {publishers.map((publisher) => {
                   const tenant = publisher.tenant as Tenant;

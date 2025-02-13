@@ -1,6 +1,6 @@
-import { Combobox, TextInput, useCombobox } from "@mantine/core";
+import { Combobox, Skeleton, TextInput, useCombobox } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
-import { useLoadScript } from "@react-google-maps/api";
+import { useApiIsLoaded } from "@vis.gl/react-google-maps";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -8,18 +8,12 @@ import usePlacesAutocomplete, {
 
 import { RegistrationFormSchema } from "@/backend/features/register/validator";
 
-const loadScriptLibraries: ["places"] = ["places"];
-
-const INVALID_LOCATION = {
-  lat: Infinity,
-  lng: Infinity,
-};
-
 interface PlacesAutocompleteProps {
   form: UseFormReturnType<RegistrationFormSchema>;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
+  onCoordinatesSelect?: (position: { lat: number; lng: number }) => void;
 }
 
 interface PlacesAutocompleteSpreadProps {
@@ -36,14 +30,14 @@ function PlacesAutocomplete({
   name,
   label,
   placeholder,
+  onCoordinatesSelect: notifyCoordinatesSelect,
 }: PlacesAutocompleteProps) {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-    libraries: loadScriptLibraries,
-  });
+  const isLoaded = useApiIsLoaded();
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <Skeleton className="h-15 w-full before:bg-light-700 after:bg-light-600" />
+    );
   }
 
   return (
@@ -54,12 +48,15 @@ function PlacesAutocomplete({
       {...form.getInputProps(name)}
       label={label}
       placeholder={placeholder}
-      onCoordinatesSelect={(args) =>
-        form.setFieldValue("location", {
+      onCoordinatesSelect={(args) => {
+        form.setFieldValue(name, {
           longtitude: args.lng,
           latitude: args.lat,
-        })
-      }
+        });
+        if (notifyCoordinatesSelect) {
+          notifyCoordinatesSelect(args);
+        }
+      }}
     />
   );
 }
@@ -78,7 +75,7 @@ function PlacesAutocompleteInput({
 } & PlacesAutocompleteSpreadProps & {
     id: string;
     name: string;
-    label: string;
+    label?: string;
     placeholder: string;
   }) {
   const {
@@ -129,9 +126,6 @@ function PlacesAutocompleteInput({
             }
           }}
           onBlur={(e) => {
-            if (!e.currentTarget.value) {
-              onCoordinatesSelect(INVALID_LOCATION);
-            }
             combobox.closeDropdown();
             if (onBlur) {
               onBlur(e);

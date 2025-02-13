@@ -55,6 +55,10 @@ const theme = createTheme({
     InputBase: InputBase.extend({
       defaultProps: {
         size: "xl",
+        descriptionProps: {
+          fz: "sm",
+          mb: "sm",
+        },
       },
     }),
     Input: Input.extend({
@@ -75,7 +79,7 @@ const theme = createTheme({
     }),
     InputLabel: InputLabel.extend({
       defaultProps: {
-        fz: "md",
+        fz: "sm",
         mb: "xs",
         fw: "bold",
       },
@@ -83,7 +87,7 @@ const theme = createTheme({
     InputError: InputError.extend({
       defaultProps: {
         fz: "sm",
-        lh: "sm",
+        mt: "sm",
       },
     }),
     Checkbox: Checkbox.extend({

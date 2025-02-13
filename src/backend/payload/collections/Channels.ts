@@ -37,5 +37,10 @@ export const Channels: CollectionConfig = {
       type: "text",
       required: true,
     },
+    {
+      name: "recipientTypeLabel",
+      type: "text",
+      required: true,
+    },
   ],
 };
