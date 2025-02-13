@@ -35,7 +35,7 @@ async function SuccessPage({
   const tenant = publisher.tenant as Tenant;
 
   return (
-    <main className="h-dvh w-screen">
+    <main className="min-h-dvh w-screen xl:h-dvh">
       <div className="flex h-full flex-col justify-center">
         <section
           className={cn(

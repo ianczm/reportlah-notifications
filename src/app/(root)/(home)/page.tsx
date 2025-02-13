@@ -11,7 +11,7 @@ import Landing from "../../../ui/components/layout/Landing";
 export default async function Home() {
   const publisherGroups = await getAllPublisherGroups();
   return (
-    <main className="h-dvh w-screen">
+    <main className="min-h-dvh w-screen xl:h-dvh">
       <LandingGrid>
         {/* Left */}
         <Landing>
