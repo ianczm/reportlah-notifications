@@ -20,6 +20,18 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      afterNavLinks: [
+        "@payload/components/afterNavLinks/LinkToRevalidateView#LinkToRevalidateView",
+      ],
+      views: {
+        revalidate: {
+          Component:
+            "@payload/components/views/revalidate/Revalidate#RevalidateView",
+          path: "/revalidate",
+        },
+      },
+    },
   },
   collections,
   editor: lexicalEditor(),
