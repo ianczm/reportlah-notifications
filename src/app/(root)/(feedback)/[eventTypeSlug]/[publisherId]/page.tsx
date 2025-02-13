@@ -22,7 +22,7 @@ async function FeedbackPage({
   );
 
   return (
-    <main className="min-h-dvh w-screen">
+    <main className="h-dvh w-screen">
       <LandingGrid>
         {/* Left */}
         <Landing>
