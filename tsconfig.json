@@ -12,6 +12,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@payload/*": ["./src/backend/payload/*"],
       "@payload-config": ["./src/backend/payload/payload.config.ts"]
     },
     "plugins": [
