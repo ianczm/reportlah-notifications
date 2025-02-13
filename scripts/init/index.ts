@@ -35,6 +35,7 @@ const seed = async () => {
       data: {
         provider: "Courier",
         recipientType: "Default",
+        recipientTypeLabel: "Courier User ID",
       },
     }),
     payload.create({
@@ -42,6 +43,7 @@ const seed = async () => {
       data: {
         provider: "Discord",
         recipientType: "User",
+        recipientTypeLabel: "Discord User ID",
       },
     }),
     payload.create({
@@ -49,6 +51,7 @@ const seed = async () => {
       data: {
         provider: "Discord",
         recipientType: "Channel",
+        recipientTypeLabel: "Discord Channel ID",
       },
     }),
   ]);
